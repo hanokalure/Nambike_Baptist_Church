@@ -167,6 +167,11 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Mobile Social Links - Hidden by default */
+.mobile-socials {
+  display: none;
+}
+
 /* ---------------------- Hero section ---------------------- */
 .hero {
   position: relative;
@@ -218,9 +223,6 @@ body {
   margin: 0 auto;
 }
 
-.mobile-socials {
-  display: none;
-}
 /* ---------------------- MOBILE RESPONSIVE ---------------------- */
 @media (max-width: 768px) {
   body {
@@ -284,6 +286,7 @@ body {
     max-height: 700px;
   }
 
+  /* Mobile menu items - remove hover underline */
   .nav-bottom .nav-right a {
     width: 100%;
     display: flex;
@@ -294,9 +297,16 @@ body {
     color: white;
     font-family: 'Poppins', sans-serif;
     /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+    position: static; /* Remove relative positioning */
   }
 
-  /* Mobile Social Links Styles */
+  /* Remove underline effect completely */
+  .nav-bottom .nav-right a::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* Mobile social links */
   .mobile-socials {
     display: flex;
     justify-content: center;
@@ -304,28 +314,26 @@ body {
     padding: 20px 0;
     width: 100%;
     /* border-top: 1px solid rgba(255, 255, 255, 0.2); */
-    margin-top: 5px;
+    margin-top: 10px;
   }
 
   .mobile-socials .social-link {
     color: white;
     font-size: 24px;
     transition: all 0.3s ease;
-    /* Remove any underline effects */
-    position: static; /* Remove position relative */
+    position: static; /* Remove relative positioning */
   }
-  
-  /* Remove any ::after pseudo-elements */
-  .mobile-socials .social-link::after {
-    content: none !important;
-    display: none !important;
-  }
-  
+
   .mobile-socials .social-link:hover {
     color: #ccc;
     transform: translateY(-3px);
-    /* Ensure no underline appears */
     text-decoration: none;
+  }
+
+  /* Remove any residual underlines */
+  .mobile-socials .social-link::after {
+    content: none !important;
+    display: none !important;
   }
 
   .hamburger.active .bar:nth-child(1) {
