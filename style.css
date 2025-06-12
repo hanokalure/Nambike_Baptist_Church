@@ -128,11 +128,11 @@ body {
 
 .logo-mobile {
   display: none;
-  height: 60px;
+  height: 70px;
   width: auto;
   position: absolute;
   left: 20px;
-  top: 15px;
+  top: 20px;
 }
 
 /* Nav Icons (Right) */
@@ -222,6 +222,76 @@ body {
   max-width: 700px;
   margin: 0 auto;
 }
+
+/* See You Section */
+.see-you-section {
+  background-image: url('images/worship.png'); /* Replace with actual image path */
+  background-size: cover;
+  background-position: center;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.see-you-container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background-color: transparent; /* Fully transparent */
+  border: 2px solid white;
+  border-radius: 30px;
+  flex-wrap: wrap;
+}
+
+.see-you-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: white;
+}
+
+.see-you-text-box h2 {
+  font-size: 42px;
+  margin: 0;
+  font-weight: 600;
+  font-family: proxima-nova, sans-serif;
+}
+
+.see-you-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  color: white;
+  font-family: proxima-nova, sans-serif;
+}
+
+.see-you-time i {
+  color: orange;
+  font-size: 24px;
+}
+
+.map-button {
+  background-color: #18819C;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 50px;
+  font-size: 30px;
+  font-family: proxima-nova, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.map-button:hover {
+  background-color: #126778;
+}
+
 
 /* ---------------------- MOBILE RESPONSIVE ---------------------- */
 @media (max-width: 768px) {
@@ -362,3 +432,27 @@ body {
     padding: 0 10px;
   }
 }
+
+.see-you-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .see-you-text-box h2 {
+    font-size: 32px;
+  }
+
+  .see-you-time {
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .map-button {
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: proxima-nova, sans-serif;
+    padding: 12px 24px;
+  }
+
+ 
