@@ -820,7 +820,7 @@ body {
 
 .footer-section p i {
   margin-right: 10px;
-  color: #333;
+  color: #fff;
 }
 
 .footer-bottom {
@@ -859,6 +859,9 @@ body {
     align-items: center;
     gap: 20px;
   }
+  .nav-top .nav-right a:last-child {
+    margin-right: 15px;
+  }
 
   .hamburger {
     display: flex;
@@ -881,6 +884,7 @@ body {
 
   .nav-icons {
     right: 15px;
+    margin-right: 15px;
   }
 
   .nav-icons .search-icon i {
@@ -1058,6 +1062,52 @@ body {
   .visit-form {
     padding: 30px 20px;
   }
+  }
+
+.plan-visit-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #333;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0 24px 0 24px;
+  height: 48px;
+  border-radius: 24px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  gap: 16px;
+  white-space: nowrap;
+}
+
+.plan-visit-btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.arrow-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.18);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+
+.plan-visit-btn:hover .arrow-circle {
+  background: rgba(255,255,255,0.28);
+}
+
+.arrow-circle i {
+  color: #fff;
+  font-size: 18px;
   }
 
  
