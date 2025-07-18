@@ -128,6 +128,15 @@ body {
   background-color: #333;
 }
 
+.nav-bottom .nav-right a.logo-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+.nav-bottom .nav-right a.logo-link {
+  pointer-events: auto;
+}
+
 /* Logos */
 .logo-desktop {
   display: block;
@@ -971,9 +980,9 @@ body {
   .hero-buttons {
     flex-direction: column;
     align-items: center;
-  }
+}
 
-  .see-you-container {
+.see-you-container {
     flex-direction: column;
     text-align: center;
   }
@@ -1049,6 +1058,6 @@ body {
   .visit-form {
     padding: 30px 20px;
   }
-}
+  }
 
  
