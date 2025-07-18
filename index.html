@@ -39,6 +39,7 @@
         <a href="#" class="logo-link logo-desktop-link"><img src="images/imglogo1.png" alt="Nambike Baptist Church Logo" class="logo logo-desktop" /></a>
         <a href="#events">EVENTS</a>
         <a href="#visit">PLAN YOUR VISIT</a>
+        <a href="#sermons">SERMONS</a>
         
         <!-- Mobile Social Links Container -->
         <div class="mobile-socials">
@@ -332,6 +333,17 @@
     </div>
   </section>
 
+  <!-- Recent Sermons Section -->
+  <section id="sermons" class="sermons-section">
+    <div class="container sermons-fixed-container">
+      <div class="section-header">
+        <h2>Recent Sermons</h2>
+        <p>Watch our latest messages and live streams</p>
+      </div>
+      <div id="recent-sermons" class="sermons-grid"></div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -390,6 +402,107 @@
         window.scrollTo(0, 0); // Instantly scroll to top
         location.reload();      // Reload immediately
       });
+    });
+
+    // Recent Sermons YouTube API
+    const apiKey = 'AIzaSyCRGk7ACzdDOkby2fAInlZwAeykJk1geGE';
+    const channelId = 'UCNGgXO1Rl_9DSCxJ6XNuaTQ';
+    const maxResults = 4;
+    async function fetchSermons() {
+      // Fetch live video (if any)
+      let liveVideo = null;
+      try {
+        const liveResp = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&eventType=live&type=video&order=date&maxResults=1`);
+        const liveData = await liveResp.json();
+        if (liveData.items && liveData.items.length > 0) {
+          liveVideo = liveData.items[0];
+        }
+      } catch (e) {}
+      // Fetch recent uploads
+      const resp = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`);
+      const data = await resp.json();
+      let videos = data.items.filter(item => item.id.kind === 'youtube#video');
+      // If live video exists, put it first (and remove duplicate if present)
+      if (liveVideo) {
+        videos = [liveVideo, ...videos.filter(v => v.id.videoId !== liveVideo.id.videoId)];
+      }
+      return videos.slice(0, maxResults);
+    }
+    fetchSermons().then(videos => {
+      const sermonsContainer = document.getElementById('recent-sermons');
+      sermonsContainer.innerHTML = '';
+      videos.forEach((item, idx) => {
+        const videoId = item.id.videoId;
+        const title = item.snippet.title;
+        sermonsContainer.innerHTML += `
+          <div class="sermon-card" data-index="${idx}">
+            <div class="sermon-accent"></div>
+            <div class="sermon-video-wrap">
+              <iframe width="100%" height="220" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="sermon-title">${title}</div>
+            <a class="sermon-watch-btn" href="https://www.youtube.com/@nambikebaptistchurch" target="_blank">More on YouTube</a>
+          </div>
+        `;
+      });
+      // Mobile slider logic
+      function isMobile() {
+        return window.innerWidth <= 900;
+      }
+      let current = 0;
+      let autoSlideInterval;
+      const updateSlider = () => {
+        const cards = sermonsContainer.querySelectorAll('.sermon-card');
+        cards.forEach((card, idx) => {
+          card.classList.remove('active', 'prev', 'next');
+          if (!isMobile()) {
+            card.style.position = '';
+            card.style.opacity = '';
+            card.style.transform = '';
+            card.style.zIndex = '';
+            card.style.pointerEvents = '';
+            return;
+          }
+          if (idx === current) card.classList.add('active');
+          else if (idx === (current - 1 + cards.length) % cards.length) card.classList.add('prev');
+          else if (idx === (current + 1) % cards.length) card.classList.add('next');
+        });
+      };
+      function nextSermon() {
+        current = (current + 1) % videos.length;
+        updateSlider();
+      }
+      function prevSermon() {
+        current = (current - 1 + videos.length) % videos.length;
+        updateSlider();
+      }
+      function startAutoSlide() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(nextSermon, 4000);
+      }
+      function stopAutoSlide() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+      }
+      // Touch events for swipe
+      let startX = null;
+      sermonsContainer.addEventListener('touchstart', function(e) {
+        if (!isMobile()) return;
+        stopAutoSlide();
+        startX = e.touches[0].clientX;
+      });
+      sermonsContainer.addEventListener('touchend', function(e) {
+        if (!isMobile() || startX === null) return;
+        const endX = e.changedTouches[0].clientX;
+        const dx = endX - startX;
+        if (dx < -40) nextSermon(); // swipe left
+        else if (dx > 40) prevSermon(); // swipe right
+        startX = null;
+        startAutoSlide();
+      });
+      // Responsive: update on resize
+      window.addEventListener('resize', updateSlider);
+      updateSlider();
+      if (isMobile()) startAutoSlide();
     });
   </script>
 </body>
