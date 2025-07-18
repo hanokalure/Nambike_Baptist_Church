@@ -23,9 +23,8 @@
         </a>
       </div>
       <div class="nav-right">
-        <a href="#">Watch Live</a>
+        <a href="live.html" target="_blank">Watch Live</a>
         <a href="#">Join Us</a>
-        <a href="#">Need Prayer?</a>
       </div>
     </div>
 
@@ -57,7 +56,15 @@
 
       <!-- Search + Hamburger (right) -->
       <div class="nav-icons">
-        <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div class="search-container">
+          <div class="search-icon" id="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="search-field" id="searchField">
+            <input type="text" placeholder="Search..." id="searchInput">
+            <button type="button" class="search-close" id="searchClose">
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+        </div>
         <div class="hamburger" id="hamburger">
           <div class="bar"></div>
           <div class="bar"></div>
@@ -75,22 +82,294 @@
     <div class="hero-content">
       <h1>Welcome to Nambike Baptist Church</h1>
       <p>Join us to worship, grow, and serve together.</p>
-    </div>
-  </section>
-  <section class="see-you-section">
-  <div class="see-you-container">
-    <div class="see-you-text-box">
-      <h2>See You Sunday</h2>
-      <div class="see-you-time">
-        <i class="fa-solid fa-clock"></i>
-        <span>10:00 & 11:00 AM</span>
+      <div class="hero-buttons">
+        <a href="#visit" class="btn btn-primary">Plan Your Visit</a>
+        <a href="#about" class="btn btn-secondary">Learn More</a>
       </div>
     </div>
-    <button class="map-button">View on Map</button>
-  </div>
-</section>
+  </section>
 
+  <section class="see-you-section">
+    <div class="see-you-container">
+      <div class="see-you-text-box">
+        <h2>See You Sunday</h2>
+        <div class="see-you-time">
+          <i class="fa-solid fa-clock"></i>
+          <span>10:00 & 11:00 AM</span>
+        </div>
+      </div>
+      <button class="map-button">View on Map</button>
+    </div>
+  </section>
 
+  <!-- About Us Section -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>About Us</h2>
+        <p>Discover our story and mission</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Our Mission</h3>
+          <p>At Nambike Baptist Church, we are committed to sharing the love of Christ and building a community of believers who worship, grow, and serve together. Our mission is to reach people with the Gospel and help them grow in their faith.</p>
+          
+          <h3>Our Vision</h3>
+          <p>We envision a church where every person experiences God's love, grows in their relationship with Christ, and serves others with compassion and grace.</p>
+          
+          <div class="about-stats">
+            <div class="stat">
+              <h4>50+</h4>
+              <p>Years of Ministry</p>
+            </div>
+            <div class="stat">
+              <h4>500+</h4>
+              <p>Active Members</p>
+            </div>
+            <div class="stat">
+              <h4>10+</h4>
+              <p>Ministries</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-image">
+          <img src="images/imglogo.jpg" alt="Nambike Baptist Church" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ministries Section -->
+  <section id="ministry" class="ministries-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Ministries</h2>
+        <p>Find your place to serve and grow</p>
+      </div>
+      <div class="ministries-grid">
+        <div class="ministry-card">
+          <div class="ministry-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Youth Ministry</h3>
+          <p>Engaging programs for children and teenagers to grow in faith and build lasting friendships.</p>
+          <a href="#" class="ministry-link">Learn More</a>
+        </div>
+        
+        <div class="ministry-card">
+          <div class="ministry-icon">
+            <i class="fas fa-music"></i>
+          </div>
+          <h3>Worship Team</h3>
+          <p>Join our worship team and use your musical talents to glorify God and lead others in praise.</p>
+          <a href="#" class="ministry-link">Learn More</a>
+        </div>
+        
+        <div class="ministry-card">
+          <div class="ministry-icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <h3>Outreach</h3>
+          <p>Serving our community through various outreach programs and charitable initiatives.</p>
+          <a href="#" class="ministry-link">Learn More</a>
+        </div>
+        
+        <div class="ministry-card">
+          <div class="ministry-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <h3>Bible Study</h3>
+          <p>Deep dive into God's Word through our various Bible study groups and classes.</p>
+          <a href="#" class="ministry-link">Learn More</a>
+        </div>
+        
+        <div class="ministry-card">
+          <div class="ministry-icon">
+            <i class="fas fa-pray"></i>
+          </div>
+          <h3>Prayer Team</h3>
+          <p>Join our dedicated prayer team and intercede for the needs of our church and community.</p>
+          <a href="#" class="ministry-link">Learn More</a>
+        </div>
+        
+        <div class="ministry-card">
+          <div class="ministry-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Women's Ministry</h3>
+          <p>Fellowship and spiritual growth opportunities specifically designed for women of all ages.</p>
+          <a href="#" class="ministry-link">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events" class="events-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Upcoming Events</h2>
+        <p>Join us for these special gatherings</p>
+      </div>
+      <div class="events-grid">
+        <div class="event-card">
+          <div class="event-date">
+            <span class="day">25</span>
+            <span class="month">DEC</span>
+          </div>
+          <div class="event-content">
+            <h3>Christmas Eve Service</h3>
+            <p class="event-time"><i class="fas fa-clock"></i> 7:00 PM</p>
+            <p class="event-description">Join us for a special Christmas Eve service celebrating the birth of our Savior.</p>
+            <a href="#" class="event-link">Learn More</a>
+          </div>
+        </div>
+        
+        <div class="event-card">
+          <div class="event-date">
+            <span class="day">01</span>
+            <span class="month">JAN</span>
+          </div>
+          <div class="event-content">
+            <h3>New Year's Prayer Service</h3>
+            <p class="event-time"><i class="fas fa-clock"></i> 10:00 AM</p>
+            <p class="event-description">Start the new year with prayer and thanksgiving as we seek God's guidance.</p>
+            <a href="#" class="event-link">Learn More</a>
+          </div>
+        </div>
+        
+        <div class="event-card">
+          <div class="event-date">
+            <span class="day">15</span>
+            <span class="month">JAN</span>
+          </div>
+          <div class="event-content">
+            <h3>Bible Study Kickoff</h3>
+            <p class="event-time"><i class="fas fa-clock"></i> 6:30 PM</p>
+            <p class="event-description">Begin a new season of Bible study with our weekly small group meetings.</p>
+            <a href="#" class="event-link">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plan Your Visit Section -->
+  <section id="visit" class="visit-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Plan Your Visit</h2>
+        <p>We'd love to welcome you this Sunday</p>
+      </div>
+      <div class="visit-content">
+        <div class="visit-info">
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3>Service Times</h3>
+            <p>Sunday: 10:00 AM & 11:00 AM</p>
+            <p>Wednesday Bible Study: 7:00 PM</p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Location</h3>
+            <p>Nambike Baptist Church</p>
+            <p>Church Address Here</p>
+            <p>City, State ZIP</p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <h3>Contact</h3>
+            <p>Phone: +91 8197645778</p>
+            <p>Email: info@nambikebaptist.org</p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-child"></i>
+            </div>
+            <h3>Children's Ministry</h3>
+            <p>Nursery available for ages 0-3</p>
+            <p>Children's Church for ages 4-12</p>
+          </div>
+        </div>
+        
+        <div class="visit-form">
+          <h3>Let Us Know You're Coming</h3>
+          <form class="contact-form">
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" placeholder="Your Phone">
+            </div>
+            <div class="form-group">
+              <textarea placeholder="Any questions or special needs?" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">I'm Coming!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img src="images/imglogo1.png" alt="Nambike Baptist Church" class="footer-logo">
+          <p>Sharing God's love and building community through worship, growth, and service.</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/nambikebaptist" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/@nambikebaptistchurch6753" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/+918197645778" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#ministry">Ministries</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#visit">Plan Your Visit</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Ministries</h4>
+          <ul>
+            <li><a href="#">Youth Ministry</a></li>
+            <li><a href="#">Worship Team</a></li>
+            <li><a href="#">Outreach</a></li>
+            <li><a href="#">Bible Study</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Church Address Here</p>
+          <p><i class="fas fa-phone"></i> +91 8197645778</p>
+          <p><i class="fas fa-envelope"></i> info@nambikebaptist.org</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 Nambike Baptist Church. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
