@@ -286,7 +286,7 @@
             <p>Wednesday Bible Study: 7:00 PM</p>
           </div>
           
-          <div class="info-card">
+          <div class="info-card location-card" onclick="window.open('https://maps.app.goo.gl/qyNabgvVf4pDCDis8', '_blank')" style="cursor:pointer;">
             <div class="info-icon">
               <i class="fas fa-map-marker-alt"></i>
             </div>
@@ -343,6 +343,7 @@
         <h2>Recent Sermons</h2>
         <p>Watch our latest messages and live streams</p>
       </div>
+      <div class="sermons-swipe-hint">Swipe right <span class="swipe-arrow">&#8594;</span></div>
       <div id="recent-sermons" class="sermons-grid"></div>
     </div>
   </section>
@@ -408,7 +409,7 @@
     });
 
     // Recent Sermons YouTube API
-    const apiKey = 'AIzaSyCRGk7ACzdDOkby2fAInlZwAeykJk1geGE';
+    const apiKey = 'AIzaSyCc4OQp0HoMroqca8MUeu8hONzA55--HmI';
     const channelId = 'UCkCMChXACuo1BeyMF-ggEeg';
     const maxResults = 4;
     async function fetchSermons() {
@@ -441,19 +442,20 @@
           <div class="sermon-card" data-index="${idx}">
             <div class="sermon-accent"></div>
             <div class="sermon-video-wrap">
-              <iframe width="100%" height="220" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+              <iframe width="100%" height="220" src="https://www.youtube.com/embed/${videoId}?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="sermon-title">${title}</div>
             <a class="sermon-watch-btn" href="https://www.youtube.com/channel/UCkCMChXACuo1BeyMF-ggEeg?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
           </div>
         `;
       });
-      // Mobile slider logic
+      // Mobile slider logic with auto-swipe and pause on play
       function isMobile() {
         return window.innerWidth <= 900;
       }
       let current = 0;
       let autoSlideInterval;
+      let isAnyVideoPlaying = false;
       const updateSlider = () => {
         const cards = sermonsContainer.querySelectorAll('.sermon-card');
         cards.forEach((card, idx) => {
@@ -481,7 +483,9 @@
       }
       function startAutoSlide() {
         if (autoSlideInterval) clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(nextSermon, 4000);
+        autoSlideInterval = setInterval(() => {
+          if (!isAnyVideoPlaying) nextSermon();
+        }, 4000);
       }
       function stopAutoSlide() {
         if (autoSlideInterval) clearInterval(autoSlideInterval);
@@ -505,6 +509,44 @@
       // Responsive: update on resize
       window.addEventListener('resize', updateSlider);
       updateSlider();
+      // YouTube iframe API for play/pause detection
+      function onYouTubeIframeAPIReady() {
+        const iframes = sermonsContainer.querySelectorAll('iframe');
+        const players = [];
+        iframes.forEach((iframe, idx) => {
+          players[idx] = new YT.Player(iframe, {
+            events: {
+              'onStateChange': function(event) {
+                // 1 = playing, 2 = paused, 0 = ended
+                if (event.data === 1) {
+                  isAnyVideoPlaying = true;
+                  stopAutoSlide();
+                } else if (event.data === 2 || event.data === 0) {
+                  // Check if any video is still playing
+                  setTimeout(() => {
+                    let stillPlaying = false;
+                    players.forEach(p => {
+                      if (p.getPlayerState && p.getPlayerState() === 1) stillPlaying = true;
+                    });
+                    isAnyVideoPlaying = stillPlaying;
+                    if (!isAnyVideoPlaying && isMobile()) startAutoSlide();
+                  }, 200);
+                }
+              }
+            }
+          });
+        });
+      }
+      // Load YouTube Iframe API if not already loaded
+      if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+        var tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+      } else {
+        onYouTubeIframeAPIReady();
+      }
       if (isMobile()) startAutoSlide();
     });
   </script>
