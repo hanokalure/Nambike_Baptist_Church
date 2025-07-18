@@ -202,6 +202,34 @@
         padding: 12px 6px 10px 6px;
       }
     }
+    .bible-iframe-wrap {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-top: 8px;
+    }
+    .bible-iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      display: block;
+      background: #fff;
+    }
+    @media (max-width: 900px) {
+      .bible-iframe {
+        height: 60vh;
+        min-height: 320px;
+        max-height: 70vw;
+      }
+    }
+    @media (max-width: 600px) {
+      .bible-iframe {
+        height: 55vh;
+        min-height: 220px;
+        max-height: 70vw;
+      }
+    }
   </style>
 </head>
 <body>
@@ -245,8 +273,16 @@
       tabBible.classList.add('active');
       liveContent.innerHTML = `
         <div class="live-card">
-          <h2>NKJV Bible</h2>
-          <div style="font-size: 15px; color: #888;">Bible integration coming soon. You can embed a Bible widget or API here.</div>
+          <h2>Kannada Bible</h2>
+          <div class="bible-iframe-wrap">
+            <iframe 
+              src="https://www.wordproject.org/bibles/kn/index.htm" 
+              class="bible-iframe"
+              allowfullscreen
+              loading="lazy"
+              title="Kannada Bible from Word Project"
+            ></iframe>
+          </div>
         </div>
       `;
     }
