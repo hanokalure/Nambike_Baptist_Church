@@ -22,9 +22,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     top: offsetTop,
                     behavior: 'smooth'
                 });
-                
-                // Close mobile menu if open
-                if (navMenu.classList.contains('active')) {
+                // Only close mobile menu if NOT inside a dropdown (About Us/Our Belief)
+                const isDropdownOption = this.closest('.dropdown-menu');
+                const isAboutUsDropdown = this.closest('.dropdown') && this.closest('.dropdown').querySelector('.dropdown-toggle')?.textContent?.toLowerCase().includes('about us');
+                if (navMenu.classList.contains('active') && !isDropdownOption && !isAboutUsDropdown) {
                     hamburger.classList.remove('active');
                     navMenu.classList.remove('active');
                 }
@@ -287,5 +288,91 @@ document.addEventListener('DOMContentLoaded', function () {
           this.textContent = expanded ? 'Show Less' : 'Read More';
         }
       });
+    });
+
+    // The Truth Modal logic
+    const theTruthLink = document.getElementById('theTruthLink');
+    const theTruthModal = document.getElementById('theTruthModal');
+    const theTruthModalClose = document.getElementById('theTruthModalClose');
+
+    if (theTruthLink && theTruthModal && theTruthModalClose) {
+      theTruthLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        theTruthModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+      theTruthModalClose.addEventListener('click', function() {
+        theTruthModal.classList.remove('show');
+        document.body.style.overflow = '';
+      });
+      theTruthModal.addEventListener('click', function(e) {
+        if (e.target === theTruthModal) {
+          theTruthModal.classList.remove('show');
+          document.body.style.overflow = '';
+        }
+      });
+      // ESC key closes modal
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && theTruthModal.classList.contains('show')) {
+          theTruthModal.classList.remove('show');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    // Animated About Us dropdown effect
+    document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+      toggle.style.pointerEvents = 'auto';
+      toggle.addEventListener('click', function(e) {
+        var parent = this.closest('.dropdown');
+        var isAboutUs = this.textContent.toLowerCase().includes('about us');
+        if (isAboutUs) {
+          e.preventDefault();
+          var isOpen = parent.classList.contains('dropdown-animated-open');
+          // Close all other animated dropdowns
+          document.querySelectorAll('.dropdown-animated-open').forEach(function(d) {
+            if (d !== parent) d.classList.remove('dropdown-animated-open');
+          });
+          parent.classList.toggle('dropdown-animated-open');
+        }
+      });
+    });
+    // Close About Us dropdown if clicking outside
+    document.addEventListener('click', function(e) {
+      var isDropdown = e.target.closest('.dropdown');
+      if (!isDropdown) {
+        document.querySelectorAll('.dropdown-animated-open').forEach(function(d) {
+          d.classList.remove('dropdown-animated-open');
+        });
+      }
+    });
+
+    // Standard dropdown hide/show: toggle .open on click, close others if opening
+    document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+      toggle.style.pointerEvents = 'auto';
+      toggle.addEventListener('click', function(e) {
+        var parent = this.closest('.dropdown');
+        var isOpen = parent.classList.contains('open');
+        if (!isOpen) {
+          // Close other open dropdowns
+          document.querySelectorAll('.dropdown.open').forEach(function(d) {
+            if (d !== parent) d.classList.remove('open');
+          });
+        }
+        parent.classList.toggle('open');
+        // Prevent navigation for About Us toggle
+        if (this.textContent.toLowerCase().includes('about us')) {
+          e.preventDefault();
+        }
+      });
+    });
+    // Close dropdown if clicking outside (on both desktop and mobile)
+    document.addEventListener('click', function(e) {
+      var isDropdown = e.target.closest('.dropdown');
+      if (!isDropdown) {
+        document.querySelectorAll('.dropdown.open').forEach(function(d) {
+          d.classList.remove('open');
+        });
+      }
     });
 });

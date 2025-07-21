@@ -11,6 +11,12 @@ body {
   background-color: blanchedalmond;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -482,9 +488,11 @@ body {
 
 /* ---------------------- Container ---------------------- */
 .container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
 /* ---------------------- Section Headers ---------------------- */
@@ -547,8 +555,8 @@ body {
 .about-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-top: 40px;
+  gap: 10px;
+  margin-top: 0px;
 }
 
 .stat {
@@ -1403,7 +1411,7 @@ body {
   font-weight: 700;
 }
 .about-belief-block {
-  margin-bottom: 24px;
+  margin-bottom: 15px;
 }
 .about-belief-block h4 {
   font-size: 20px;
@@ -1532,5 +1540,225 @@ body {
   color: #fff;
   font-weight: 600;
   box-shadow: 0 4px 16px rgba(42,93,176,0.13);
+}
+
+.truth-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0,0,0,0.45);
+  justify-content: center;
+  align-items: center;
+}
+.truth-modal.show {
+  display: flex;
+}
+.truth-modal-content {
+  background: #fff;
+  margin: auto;
+  border-radius: 14px;
+  max-width: 420px;
+  width: 92vw;
+  padding: 32px 24px 24px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  animation: truthModalIn 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes truthModalIn {
+  from { transform: translateY(40px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.truth-modal-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 18px;
+  color: #2a5db0;
+  font-weight: 700;
+}
+.truth-modal-body p {
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.truth-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 1.6em;
+  color: #888;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.2s;
+  z-index: 10;
+}
+.truth-modal-close:hover,
+.truth-modal-close:focus {
+  color: #2a5db0;
+}
+@media (max-width: 480px) {
+  .truth-modal-content {
+    padding: 18px 6vw 16px 6vw;
+    max-width: 98vw;
+  }
+  .truth-modal-title {
+    font-size: 1.15em;
+  }
+  .truth-modal-body p {
+    font-size: 0.98em;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 8px;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+.dropdown-toggle:hover,
+.dropdown-toggle:focus {
+  background: none;
+  color: #333;
+  text-decoration: none;
+}
+.nav-right > a:hover,
+.nav-right > a:focus {
+  background: none;
+  color: #333;
+  text-decoration: none;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  border-radius: 0 0 8px 8px;
+  z-index: 1001;
+  padding: 8px 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s;
+}
+.dropdown-animated-open .dropdown-menu {
+  display: block;
+  max-height: 500px;
+  opacity: 1;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s;
+}
+.dropdown-menu a {
+  display: block;
+  padding: 10px 22px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+  background: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+}
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+@media (max-width: 900px) {
+  .dropdown-menu {
+    position: static;
+    min-width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+    background: #fff;
+    padding: 0;
+  }
+  .dropdown-animated-open .dropdown-menu {
+    max-height: 500px;
+    opacity: 1;
+  }
+  .dropdown-menu a {
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+    text-align: center;
+  }
+  .dropdown-toggle {
+    width: 100%;
+    justify-content: center;
+    font-size: 18px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+  }
+}
+
+@media (max-width: 900px) {
+  .dropdown-toggle {
+    pointer-events: none;
+    background: none;
+  }
+  .dropdown {
+    cursor: pointer;
+  }
+  .dropdown-toggle i {
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-bottom .nav-right {
+    width: 100vw;
+    max-width: 100vw;
+    left: -100vw;
+  }
+  .nav-bottom .nav-right.active {
+    left: 0;
+  }
+  .dropdown-menu {
+    width: 100vw;
+    max-width: 100vw;
+    left: 0;
+  }
+}
+
+/* Remove underline bar from About Us (dropdown-toggle) on hover, keep for other links */
+.dropdown-toggle::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Remove underline bar and background color from About Us dropdown options on hover */
+.dropdown-menu a::after {
+  display: none !important;
+  content: none !important;
+}
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+  background: none !important;
+  color: #333 !important;
+  text-decoration: none !important;
 }
 
