@@ -217,4 +217,75 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Initial call
     updateActiveNavItem();
+
+    // Slide-to-left effect for see-you-section (service name and time)
+    const seeYouServiceNames = [
+      'Sunday School',
+      'Sunday Service',
+      'Wednesday Bible Study'
+    ];
+    const seeYouServiceTimes = [
+      '10am',
+      '11am',
+      '7pm'
+    ];
+    const seeYouServiceName = document.getElementById('seeYouServiceName');
+    const seeYouServiceTime = document.getElementById('seeYouServiceTime');
+    let seeYouMsgIdx = 0;
+
+    function showSeeYouMessage(idx) {
+      if (!seeYouServiceName || !seeYouServiceTime) return;
+      // Remove previous animation classes
+      [seeYouServiceName, seeYouServiceTime].forEach(el => {
+        el.classList.remove('slide-in-left', 'slide-out-left');
+      });
+      // Slide out to left
+      seeYouServiceName.classList.add('slide-out-left');
+      seeYouServiceTime.classList.add('slide-out-left');
+      setTimeout(() => {
+        // Update text
+        if (idx === 2) { // Wednesday Bible Study
+          seeYouServiceName.textContent = '';
+          seeYouServiceTime.innerHTML = `Wednesday Bible Study <i class='fa-solid fa-clock'></i> 7pm`;
+        } else {
+          seeYouServiceName.textContent = seeYouServiceNames[idx];
+          seeYouServiceTime.innerHTML = `<i class='fa-solid fa-clock'></i> ${seeYouServiceTimes[idx]}`;
+        }
+        // Instantly reset slide
+        [seeYouServiceName, seeYouServiceTime].forEach(el => {
+          el.classList.remove('slide-out-left');
+          el.classList.add('slide-in-left');
+        });
+      }, 500);
+    }
+
+    function startSeeYouSlider() {
+      showSeeYouMessage(seeYouMsgIdx);
+      setInterval(() => {
+        seeYouMsgIdx = (seeYouMsgIdx + 1) % seeYouServiceNames.length;
+        showSeeYouMessage(seeYouMsgIdx);
+      }, 2000);
+    }
+
+    if (seeYouServiceName && seeYouServiceTime) {
+      // Initial state
+      seeYouServiceName.style.transform = 'translateX(0)';
+      seeYouServiceName.style.opacity = 1;
+      seeYouServiceTime.style.transform = 'translateX(0)';
+      seeYouServiceTime.style.opacity = 1;
+      startSeeYouSlider();
+    }
+
+    // Read More / Show Less for about-belief section
+    document.querySelectorAll('.readmore-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+        if (content) {
+          const expanded = content.classList.toggle('expanded');
+          this.textContent = expanded ? 'Show Less' : 'Read More';
+        }
+      });
+    });
 });

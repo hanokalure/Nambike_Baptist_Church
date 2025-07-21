@@ -30,13 +30,13 @@
 
     <div class="nav-bottom">
       <!-- Mobile logo (hidden on desktop) -->
-      <a href="#" class="logo-link logo-mobile-link"><img src="images/imglogo1.png" alt="Nambike Baptist Church Logo" class="logo logo-mobile" /></a>
+      <a href="#" class="logo-link logo-mobile-link"><img src="images/imglogo2.jpg" alt="Nambike Baptist Church Logo" class="logo logo-mobile" /></a>
 
       <!-- Center nav links -->
       <div class="nav-right" id="navMenu">
         <a href="#about">ABOUT US</a>
         <a href="#ministry">MINISTRIES</a>
-        <a href="#" class="logo-link logo-desktop-link"><img src="images/imglogo1.png" alt="Nambike Baptist Church Logo" class="logo logo-desktop" /></a>
+        <a href="#" class="logo-link logo-desktop-link"><img src="images/imglogo2.jpg" alt="Nambike Baptist Church Logo" class="logo logo-desktop" /></a>
         <a href="#events">EVENTS</a>
         <a href="#visit">PLAN YOUR VISIT</a>
         <a href="#sermons">SERMONS</a>
@@ -84,7 +84,7 @@
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Welcome to Nambike Baptist Church</h1>
+      <h1>Welcome to <br> Nambike Baptist Church</h1>
       <p>Join us to worship, grow, and serve together.</p>
       <div class="hero-buttons">
         <a href="#visit" class="plan-visit-btn">
@@ -101,10 +101,9 @@
   <section class="see-you-section">
   <div class="see-you-container">
     <div class="see-you-text-box">
-      <h2>See You Sunday</h2>
-      <div class="see-you-time">
-        <i class="fa-solid fa-clock"></i>
-        <span>10:00 & 11:00 AM</span>
+      <div class="see-you-typewriter">
+        <span id="seeYouServiceName"></span>
+        <span id="seeYouServiceTime"></span>
       </div>
     </div>
     <button class="plan-visit-btn map-button" onclick="window.open('https://maps.app.goo.gl/qyNabgvVf4pDCDis8', '_blank')">
@@ -121,33 +120,50 @@
     <div class="container">
       <div class="section-header">
         <h2>About Us</h2>
-        <p>Discover our story and mission</p>
+        
       </div>
       <div class="about-content">
-        <div class="about-text">
-          <h3>Our Mission</h3>
-          <p>At Nambike Baptist Church, we are committed to sharing the love of Christ and building a community of believers who worship, grow, and serve together. Our mission is to reach people with the Gospel and help them grow in their faith.</p>
-          
-          <h3>Our Vision</h3>
-          <p>We envision a church where every person experiences God's love, grows in their relationship with Christ, and serves others with compassion and grace.</p>
-          
-          <div class="about-stats">
-            <div class="stat">
-              <h4>50+</h4>
-              <p>Years of Ministry</p>
+        <div class="about-text-group">
+          <div class="about-belief">
+            <h3>Our Belief</h3>
+            <div class="about-belief-block">
+              <h4>Doctrinal Statement</h4>
+              <p>Nambike Baptist Church is proud of its Baptist doctrine, practice, and heritage. We are proud to defend the fundamentals of the faith, and we support without compromise the old King James Bible. We believe in aggressive evangelism, the preservation of God's Word, Christian Education and the local church. A Bible Baptist is one who believes in a supernatural Bible, which tells of a supernatural Christ, Who had a supernatural birth, Who spoke supernatural words, Who performed supernatural miracles, Who lived a supernatural life, Who died a supernatural death, Who rose in supernatural splendor, and Who will one day return in supernatural glory to establish a supernatural kingdom on earth.</p>
             </div>
-            <div class="stat">
-              <h4>500+</h4>
-              <p>Active Members</p>
+            <div class="about-belief-block">
+              <h4>What We Believe</h4>
+              <p class="readmore-content" id="whatWeBelieveContent">
+                We believe the Bible to be the inspired, the only infallible, authoritative Word of God and that He has preserved it for the English-speaking world in the Authorized King James Version. We believe that there is one God, the source, support, and end of all things, eternally existent in three persons: Father, Son and Holy Spirit. We believe in the deity of our Lord Jesus Christ; in His Virgin Birth; in His sinless life; in His miracles; in His vicarious and atoning death; in His shed blood; in His bodily resurrection; in His ascension to the Father's right hand; and in His personal, pre tribulation return for His church and His premillennial return with His saints at the Revelation. We believe that man is totally depraved, a sinner (lost) by nature and by divine decree, therefore in need of the convicting and regenerating ministry of the Holy Spirit. We believe in the personality of Satan; in his power and kingdom; in His wiles; and in his judgment at the cross and his eternal destruction in Hell. We believe in the present ministry of the Holy Spirit; that He convicts the sinner; regenerates the one who believes; indwells, seals, instructs, reproves and guides the believer; that He fills and controls every life that is wholly yielded to Him. However, we are not Pentecostals. We believe that salvation is the gift of God offered to man by His grace and received by personal faith in the Lord Jesus Christ. We believe in the bodily resurrection of the saved unto "life" and the unsaved unto "judgment" and everlasting damnation. We believe in the spiritual unity of believers in the Lord Jesus Christ, not in the organized unity sought by the "ecumenical" movement. We believe in the special creation of the existing space-time universe and all its basic systems and kinds of organisms in the six literal days of the creation week and in the full historicity and perspicuity of the Biblical record of primeval history. This includes the literal existence of Adam and Eve as the progenitors of all people, the literal fall and resultant divine curse on the creation, the worldwide cataclysmic deluge, and the origin of nations and languages at the tower of Babel.
+              </p>
+              <a href="#" class="readmore-link" data-target="whatWeBelieveContent">Read More</a>
             </div>
-            <div class="stat">
-              <h4>10+</h4>
-              <p>Ministries</p>
+            <div class="about-belief-block">
+              <h4>Why We Use the King James Version</h4>
+              <p class="readmore-content" id="whyKJVContent">
+                We believe that the Holy Bible was written by men supernaturally inspired; that it has truth without any admixture of error for its matter; and therefore is, and shall remain to the end of the age, the only complete and final revelation of the will of God to man, the true center of Christian union and the supreme standard by which all human conduct, creeds, and opinions should be tried. We believe that the Holy Bible is the verbally plenarily inspired product of God the Holy Spirit. Further, we hold that God has given and preserved for us that which was originally written in the King James Authorized Version and we hold the KJAV to be without error. This statement of faith can in no way abrogate or amplify our true authority, which is the King James Bible Itself. The KJAV to which we refer contains 66 books that were supernaturally written and we do not refer to any other version or book. It is, therefore, necessary that no other book be preached or taught. The King James Bible which we hold in our hand is God's perfect word (The Holy Scripture) and is our final and absolute authority in all matters of faith and practice. -----the doctrine of inspiration and preservation cannot be separated -- they are just as divinely linked as Grace and Faith. II Tim. 3:16-17; II Peter 1:19-21; Acts 1:16; Acts 28:15; Psalm 119:89, 105, 130, 160; Luke 24:25-27; John 17:17; Luke 24:44-45; Prov. 30:5-6; Rom. 3:4; I Peter 1:23; Rom. 15:4; Luke 16:31; Ps. 19:7-11; John 5:45-47; John 5:39 Learn more about our stand on the King James Version by reading Dr. Carter's book, "Things That Are Different Are Not The Same"
+              </p>
+              <a href="#" class="readmore-link" data-target="whyKJVContent">Read More</a>
+            </div>
+          </div>
+          <div class="about-text">
+            <div class="about-stats">
+              <div class="stat">
+                <h4>27+</h4>
+                <p>Years of Ministry</p>
+              </div>
+              <div class="stat">
+                <h4>300+</h4>
+                <p>Active Members</p>
+              </div>
+              <div class="stat">
+                <h4>10+</h4>
+                <p>Ministries</p>
+              </div>
             </div>
           </div>
         </div>
         <div class="about-image">
-          <img src="images/imglogo.jpg" alt="Nambike Baptist Church" />
+          <img src="images/imglogo2.jpg" alt="Nambike Baptist Church" />
         </div>
       </div>
     </div>
@@ -353,7 +369,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <img src="images/imglogo1.png" alt="Nambike Baptist Church" class="footer-logo">
+          <img src="images/imglogo2.jpg" alt="Nambike Baptist Church" class="footer-logo">
           <p>Sharing God's love and building community through worship, growth, and service.</p>
           <div class="social-links">
             <a href="https://www.facebook.com/nambikebaptist" target="_blank"><i class="fab fa-facebook-f"></i></a>
