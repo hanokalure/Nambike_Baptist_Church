@@ -1039,10 +1039,10 @@ html, body {
 
   .nav-bottom .nav-right a {
     font-family: 'Poppins', Arial, serif, sans-serif !important;
-    font-size: 18px !important;
+    font-size: 15px !important;
     font-weight: 600 !important;
     letter-spacing: 0.5px;
-    padding: 15px 0;
+    padding: 12px 0;
     width: 100%;
     text-align: center;
     border-bottom: 1px solid #eee;
