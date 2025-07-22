@@ -1038,13 +1038,18 @@ html, body {
   }
 
   .nav-bottom .nav-right a {
-    font-size: 18px;
+    font-family: 'Poppins', Arial, serif, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
     padding: 15px 0;
     width: 100%;
     text-align: center;
     border-bottom: 1px solid #eee;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
   }
-
   .nav-bottom .nav-right a::after {
     display: none;
   }
