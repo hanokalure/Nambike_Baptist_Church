@@ -79,14 +79,17 @@
       text-align: center;
     }
     .three-things-video-window {
+      max-width: 560px;
       width: 100%;
-      border-radius: 0 0 18px 18px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-      background: #000;
+      /* border-radius: 0 0 18px 18px; */
+      /* overflow: hidden; */
+      /* box-shadow: 0 4px 24px rgba(0,0,0,0.10); */
       display: flex;
       justify-content: center;
       align-items: center;
+      margin: 0 auto;
+      padding: 0;
+      background: none;
     }
     .three-things-video {
       width: 100%;
@@ -365,18 +368,18 @@
             "Hmmm," you say, "I'm not sure about that one. I don't know that I believe that." But , do you know how we know that this is true? Because God Himself tells us, and God cannot lie and God cannot change. So, if God said it, it is true and it is true for all. Jesus spoke in John 3:3,5 "Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God... ."
           </li>
         </ol>
-      </div>
-      <div class="three-things-video-window" style="display: flex; justify-content: center; align-items: center; margin-top: 32px; width: 100%;">
-        <div style="position: relative; width: 100%; max-width: 560px; aspect-ratio: 16/9;">
-          <iframe
-            id="threeThingsVideo"
-            src="https://www.youtube.com/embed/pu58jHqTiDk?enablejsapi=1"
-            title="Three Things God Cannot Do"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            style="border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); background: #fff; width: 100%; height: 100%;">
-          </iframe>
+        <div class="three-things-video-window" style="display: flex; justify-content: center; align-items: center; max-width: 560px; width: 100%; margin: 0 auto; padding: 0;">
+          <div style="position: relative; width: 100%; aspect-ratio: 16/9; margin: 0; padding: 0; border-radius: 0; box-shadow: none; background: none;">
+            <iframe
+              id="threeThingsVideo"
+              src="https://www.youtube.com/embed/pu58jHqTiDk?enablejsapi=1"
+              title="Three Things God Cannot Do"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              style="border-radius: 0; box-shadow: none; background: none; width: 100%; height: 100%; margin: 0; padding: 0; display: block;">
+            </iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -630,125 +633,7 @@
           </div>
         `;
       });
-      // Mobile slider logic with auto-swipe and pause on play
-      function isMobile() {
-        return window.innerWidth <= 900;
-      }
-      let current = 0;
-      let autoSlideInterval;
-      let isAnyVideoPlaying = false;
-      const updateSlider = () => {
-        const cards = sermonsContainer.querySelectorAll('.sermon-card');
-        cards.forEach((card, idx) => {
-          card.classList.remove('active', 'prev', 'next');
-          if (!isMobile()) {
-            card.style.position = '';
-            card.style.opacity = '';
-            card.style.transform = '';
-            card.style.zIndex = '';
-            card.style.pointerEvents = '';
-            return;
-          }
-          if (idx === current) card.classList.add('active');
-          else if (idx === (current - 1 + cards.length) % cards.length) card.classList.add('prev');
-          else if (idx === (current + 1) % cards.length) card.classList.add('next');
-        });
-      };
-      function nextSermon() {
-        current = (current + 1) % videos.length;
-        updateSlider();
-      }
-      function prevSermon() {
-        current = (current - 1 + videos.length) % videos.length;
-        updateSlider();
-      }
-      function startAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(() => {
-          if (!isAnyVideoPlaying) nextSermon();
-        }, 4000);
-      }
-      function stopAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-      }
-      // Touch events for swipe
-      let startX = null;
-      sermonsContainer.addEventListener('touchstart', function(e) {
-        if (!isMobile()) return;
-        stopAutoSlide();
-        startX = e.touches[0].clientX;
-      });
-      sermonsContainer.addEventListener('touchend', function(e) {
-        if (!isMobile() || startX === null) return;
-        const endX = e.changedTouches[0].clientX;
-        const dx = endX - startX;
-        if (dx < -40) nextSermon(); // swipe left
-        else if (dx > 40) prevSermon(); // swipe right
-        startX = null;
-        startAutoSlide();
-      });
-      // Responsive: update on resize
-      window.addEventListener('resize', updateSlider);
-      updateSlider();
-      // YouTube iframe API for play/pause detection
-      function onYouTubeIframeAPIReady() {
-        const iframes = sermonsContainer.querySelectorAll('iframe');
-        const players = [];
-        iframes.forEach((iframe, idx) => {
-          players[idx] = new YT.Player(iframe, {
-            events: {
-              'onStateChange': function(event) {
-                // 1 = playing, 2 = paused, 0 = ended
-                if (event.data === 1) {
-                  isAnyVideoPlaying = true;
-                  stopAutoSlide();
-                } else if (event.data === 2 || event.data === 0) {
-                  // Check if any video is still playing
-                  setTimeout(() => {
-                    let stillPlaying = false;
-                    players.forEach(p => {
-                      if (p.getPlayerState && p.getPlayerState() === 1) stillPlaying = true;
-                    });
-                    isAnyVideoPlaying = stillPlaying;
-                    if (!isAnyVideoPlaying && isMobile()) startAutoSlide();
-                  }, 200);
-                }
-              }
-            }
-          });
-        });
-      }
-      // Load YouTube Iframe API if not already loaded
-      if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-        var tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-      } else {
-        onYouTubeIframeAPIReady();
-      }
-      if (isMobile()) startAutoSlide();
-    });
-
-    // Play the three-things video only when the section is in view
-    document.addEventListener('DOMContentLoaded', function() {
-      var section = document.querySelector('.three-things-section');
-      var video = document.querySelector('.three-things-video');
-      if (section && video) {
-        video.pause();
-        var observer = new window.IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              video.play();
-            } else {
-              video.pause();
-            }
-          });
-        }, { threshold: 0.3 });
-        observer.observe(section);
-      }
     });
   </script>
 </body>
-</html> 
+</html>
