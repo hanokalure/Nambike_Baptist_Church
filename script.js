@@ -271,10 +271,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function startSeeYouSlider() {
       showSeeYouMessage(seeYouMsgIdx);
-      setInterval(() => {
-        seeYouMsgIdx = (seeYouMsgIdx + 1) % seeYouServiceNames.length;
-        showSeeYouMessage(seeYouMsgIdx);
-      }, 2000);
+      // setInterval(() => { // REMOVE auto-slide
+      //   seeYouMsgIdx = (seeYouMsgIdx + 1) % seeYouServiceNames.length;
+      //   showSeeYouMessage(seeYouMsgIdx);
+      // }, 2000);
     }
 
     if (seeYouServiceName && seeYouServiceTime) {
@@ -425,4 +425,35 @@ document.addEventListener('DOMContentLoaded', function () {
         onYouTubeIframeAPIReady();
       }
     })();
+});
+
+function getNextDayOfWeek(date, dayOfWeek) {
+  // 0 = Sunday, 1 = Monday, ...
+  const resultDate = new Date(date.getTime());
+  resultDate.setHours(0,0,0,0);
+  resultDate.setDate(
+    date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7 || 7)
+  );
+  return resultDate;
+}
+
+function updateEventDates() {
+  const today = new Date();
+  // Sunday School (Sunday, 10:00 AM)
+  const nextSunday = getNextDayOfWeek(today, 0); // 0 = Sunday
+  document.getElementById('sunday-school-day').textContent = String(nextSunday.getDate()).padStart(2, '0');
+  document.getElementById('sunday-school-month').textContent = nextSunday.toLocaleString('default', { month: 'short' }).toUpperCase();
+
+  // Sunday Service (Sunday, 11:00 AM)
+  document.getElementById('sunday-service-day').textContent = String(nextSunday.getDate()).padStart(2, '0');
+  document.getElementById('sunday-service-month').textContent = nextSunday.toLocaleString('default', { month: 'short' }).toUpperCase();
+
+  // Wednesday Bible Study (Wednesday, 7:00 PM)
+  const nextWednesday = getNextDayOfWeek(today, 3); // 3 = Wednesday
+  document.getElementById('wednesday-bible-study-day').textContent = String(nextWednesday.getDate()).padStart(2, '0');
+  document.getElementById('wednesday-bible-study-month').textContent = nextWednesday.toLocaleString('default', { month: 'short' }).toUpperCase();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateEventDates();
 });
