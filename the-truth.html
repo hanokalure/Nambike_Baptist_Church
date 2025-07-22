@@ -172,6 +172,68 @@
       height: 460.6px;
       object-fit: cover;
     }
+    /* Add or ensure these rules for nav hover underline effect */
+    .nav-top .nav-right a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .nav-top .nav-right a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 0.5px;
+      background-color: #fff;
+      transition: width 0.3s ease;
+    }
+    .nav-top .nav-right a:hover::after {
+      width: 100%;
+    }
+    .nav-top .nav-right a[href="live2.html"]:hover,
+    .nav-top .nav-right a[href="#joinform"]:hover {
+      color: inherit !important;
+    }
+    /* BOTTOM NAVBAR */
+    .nav-bottom .nav-right a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .nav-bottom .nav-right a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: #333;
+      transition: width 0.3s ease;
+    }
+    .nav-bottom .nav-right a:hover::after {
+      width: 100%;
+    }
+    .nav-bottom .nav-right a[href="live2.html"]:hover,
+    .nav-bottom .nav-right a[href="#joinform"]:hover {
+      color: inherit !important;
+    }
+    /* FINAL OVERRIDE: Watch Live and Join Us in top navbar always white on hover */
+    .nav-top .nav-right a[href="live2.html"]:hover,
+    .nav-top .nav-right a[href="#joinform"]:hover,
+    .nav-top .nav-right a[href="live2.html"]:focus,
+    .nav-top .nav-right a[href="#joinform"]:focus,
+    .nav-top .nav-right a[href="live2.html"]:active,
+    .nav-top .nav-right a[href="#joinform"]:active {
+      color: #fff !important;
+      background: transparent !important;
+    }
   </style>
 </head>
 <body>
@@ -190,8 +252,9 @@
         </a>
       </div>
       <div class="nav-right">
-        <a href="live.html" target="_blank">Watch Live</a>
-        <a href="#joinform">Join Us</a>
+        <a href="live2.html">Watch Live</a>
+        <a href="index.html#joinform">Join Us</a>
+        <!-- <a href="give.html">Give</a> -->
       </div>
     </div>
     <div class="nav-bottom">
@@ -213,6 +276,7 @@
         <a href="index.html#events">EVENTS</a>
         <a href="index.html#visit">PLAN YOUR VISIT</a>
         <a href="index.html#sermons">SERMONS</a>
+        <a href="give.html">Give</a>
         <!-- Mobile Social Links Container -->
         <div class="mobile-socials">
           <a href="https://www.facebook.com/nambikebaptist" target="_blank" class="social-link">
@@ -332,49 +396,6 @@
       </div>
     </div>
   </div>
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <img src="images/imglogo2.jpg" alt="Nambike Baptist Church" class="footer-logo">
-          <p>Sharing God's love and building community through worship, growth, and service.</p>
-          <div class="social-links">
-            <a href="https://www.facebook.com/nambikebaptist" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.youtube.com/@nambikebaptistchurch" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://wa.me/+918197645778" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://maps.app.goo.gl/qyNabgvVf4pDCDis8" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
-          </div>
-        </div>
-        <div class="footer-section">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#ministry">Ministries</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#visit">Plan Your Visit</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>Ministries</h4>
-          <ul>
-            <li><a href="#">Youth Ministry</a></li>
-            <li><a href="#">Worship Team</a></li>
-            <li><a href="#">Outreach</a></li>
-            <li><a href="#">Bible Study</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>Contact Info</h4>
-          <p><i class="fas fa-map-marker-alt"></i> Shahpur Rd, Haladkeri, Bidar, Karnataka 585403</p>
-          <p><i class="fas fa-phone"></i> +91 8197645778</p>
-          <p><i class="fas fa-envelope"></i> info@nambikebaptist.org</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; Nambike Baptist Church. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
   <script src="script.js"></script>
 </body>
 </html> 

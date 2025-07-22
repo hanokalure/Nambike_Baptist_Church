@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Give | Nambike Baptist Church</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    .giving-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 0 10px 0;
+      background: none;
+      min-height: 60vh;
+    }
+    .giving-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 36px 40px 28px 40px;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .giving-card h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1b1b1b;
+      margin-bottom: 12px;
+    }
+    .giving-card h3 {
+      font-size: 18px;
+      color: #2a5db0;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    .giving-card p {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+    @media (max-width: 700px) {
+      .giving-section {
+        padding: 10px 0 4px 0;
+      }
+      .giving-card {
+        padding: 18px 8px 14px 8px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        max-width: 98vw;
+      }
+      .giving-card h2 {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+      .giving-card h3 {
+        font-size: 15px;
+        margin-bottom: 10px;
+      }
+      .giving-card p {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+    }
+    /* Add or ensure these rules for nav hover underline effect */
+    .nav-top .nav-right a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .nav-top .nav-right a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 0.5px;
+      background-color: #fff;
+      transition: width 0.3s ease;
+    }
+    .nav-top .nav-right a:hover::after {
+      width: 100%;
+    }
+    .nav-top .nav-right a[href="live2.html"]:hover,
+    .nav-top .nav-right a[href="#joinform"]:hover {
+      color: inherit !important;
+    }
+    /* BOTTOM NAVBAR */
+    .nav-bottom .nav-right a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .nav-bottom .nav-right a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: #333;
+      transition: width 0.3s ease;
+    }
+    .nav-bottom .nav-right a:hover::after {
+      width: 100%;
+    }
+    .nav-bottom .nav-right a[href="live2.html"]:hover,
+    .nav-bottom .nav-right a[href="#joinform"]:hover {
+      color: inherit !important;
+    }
+    /* FINAL OVERRIDE: Watch Live and Join Us in top navbar always white on hover */
+    .nav-top .nav-right a[href="live2.html"]:hover,
+    .nav-top .nav-right a[href="#joinform"]:hover,
+    .nav-top .nav-right a[href="live2.html"]:focus,
+    .nav-top .nav-right a[href="#joinform"]:focus,
+    .nav-top .nav-right a[href="live2.html"]:active,
+    .nav-top .nav-right a[href="#joinform"]:active {
+      color: #fff !important;
+      background: transparent !important;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-top">
+      <div class="nav-left">
+        <a href="https://www.facebook.com/nambikebaptist" target="_blank" class="social-link">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.youtube.com/@nambikebaptistchurch" target="_blank" class="social-link">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://wa.me/+918197645778" target="_blank" class="social-link">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+      <div class="nav-right">
+        <a href="live2.html">Watch Live</a>
+        <a href="index.html#joinform">Join Us</a>
+        <!-- <a href="#" id="theTruthLink">The Truth</a> -->
+      </div>
+    </div>
+
+    <div class="nav-bottom">
+      <!-- Mobile logo (hidden on desktop) -->
+      <a href="index.html" class="logo-link logo-mobile-link"><img src="images/imglogo2.jpg" alt="Nambike Baptist Church Logo" class="logo logo-mobile" /></a>
+
+      <!-- Center nav links -->
+      <div class="nav-right" id="navMenu">
+        <div class="dropdown">
+          <a href="index.html#about" class="dropdown-toggle">About Us<i class="fa fa-caret-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="index.html#about">Our Beliefs</a>
+            <a href="about-us.html#whatWeBelieveContent">What We Believe</a>
+            <a href="about-us.html#whyKJVContent">Why We Use the King James Version</a>
+          </div>
+        </div>
+        <a href="index.html#ministry">MINISTRIES</a>
+        <a href="the-truth.html">The Truth</a>
+        <a href="index.html" class="logo-link logo-desktop-link"><img src="images/imglogo2.jpg" alt="Nambike Baptist Church Logo" class="logo logo-desktop" /></a>
+        <a href="index.html#events">EVENTS</a>
+        <a href="index.html#visit">PLAN YOUR VISIT</a>
+        <a href="index.html#sermons">SERMONS</a>
+        <a href="give.html" style="color:#2a5db0;font-weight:700;">Give</a>
+        <!-- Mobile Social Links Container -->
+        <div class="mobile-socials">
+          <a href="https://www.facebook.com/nambikebaptist" target="_blank" class="social-link">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.youtube.com/@nambikebaptistchurch" target="_blank" class="social-link">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://wa.me/+918197645778" target="_blank" class="social-link">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://maps.app.goo.gl/qyNabgvVf4pDCDis8" target="_blank" class="social-link">
+            <i class="fas fa-map-marker-alt"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Search + Hamburger (right) -->
+      <div class="nav-icons">
+        <div class="search-container">
+          <div class="search-icon" id="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="search-field" id="searchField">
+            <input type="text" placeholder="Search..." id="searchInput">
+            <button type="button" class="search-close" id="searchClose">
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="hamburger" id="hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <section class="giving-section">
+    <div class="giving-card">
+      <h2>TITHES & OFFERINGS</h2>
+      <h3>HOW TO SUPPORT OUR CHURCH</h3>
+      <p>
+        Giving to the church is not "paying for services rendered." It is not a "fee." Giving to the church is an act of worship as you help fund the mission God has given us. This allows us to share God's love with people in Bidar and around the world. If that is your mindset, you will experience the reality that it is "more blessed to give than to receive" (Acts 20:35).
+      </p>
+      <p>
+        Thank you for your faithful financial support of Nambike Baptist Church as we serve together to live out our mission.
+      </p>
+    </div>
+  </section>
+  <section class="giving-methods-section">
+    <h3>Ways to Give</h3>
+    <div class="giving-methods-grid">
+      <!-- Online Payment Card -->
+      <div class="giving-method-card">
+        <i class="fas fa-credit-card"></i>
+        <h4>Online Giving</h4>
+        <p>Give securely online using UPI, debit/credit card, or net banking.</p>
+        <a href="#" class="give-now-btn" target="_blank">Give Now</a>
+      </div>
+      <!-- UPI QR Card -->
+      <div class="giving-method-card">
+        <i class="fas fa-qrcode"></i>
+        <h4>UPI QR Code</h4>
+        <p>Scan to give via any UPI app.</p>
+        <img src="images/imglogo2.jpg" alt="UPI QR Code" class="upi-qr-img">
+        <div class="upi-id">UPI ID: nambikebaptist@upi</div>
+      </div>
+      <!-- Bank Transfer Card -->
+      <div class="giving-method-card">
+        <i class="fas fa-university"></i>
+        <h4>Bank Transfer</h4>
+        <p>Directly transfer to our church account:</p>
+        <div class="bank-details">
+          <strong>Account Name:</strong> Nambike Baptist Church<br>
+          <strong>Account No:</strong> 1234567890<br>
+          <strong>IFSC:</strong> SBIN0001234<br>
+          <strong>Bank:</strong> State Bank of India, Bidar Branch<br>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+<script src="script.js"></script>
+</html> 

@@ -157,6 +157,136 @@
     .nav-top .nav-right a[href="#joinform"] {
       /* Remove underline and hover effect */
     }
+    @media (max-width: 700px) {
+      .ministries-grid {
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        min-height: 260px;
+        height: 100%;
+      }
+      .ministry-card {
+        flex: 0 0 100%;
+        max-width: 98vw;
+        min-width: 0;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(.4,1.3,.5,1), opacity 0.3s;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        display: block !important;
+      }
+      .ministry-card.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+        position: relative;
+        z-index: 2;
+      }
+      .ministry-card.prev {
+        opacity: 0;
+        transform: translateX(-100%);
+        z-index: 1;
+      }
+      .ministry-card.next {
+        opacity: 0;
+        transform: translateX(100%);
+        z-index: 1;
+      }
+      .ministry-card .ministry-description {
+        display: block;
+        max-height: 1000px;
+        opacity: 1;
+        transition: max-height 0.3s, opacity 0.3s;
+      }
+      .ministry-card .ministry-title-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-align: center;
+      }
+      .ministry-card .ministry-title-row h3 {
+        margin: 0;
+        font-size: 18px;
+        text-align: center;
+      }
+      .ministries-swipe-hint {
+        display: block;
+        text-align: center;
+        color: #888;
+        font-size: 15px;
+        margin-bottom: 10px;
+        margin-top: -10px;
+        letter-spacing: 1px;
+        font-weight: 500;
+      }
+      .ministries-swipe-hint .swipe-arrow {
+        font-size: 18px;
+        vertical-align: middle;
+        margin-left: 4px;
+      }
+    }
+    .give-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      background: rgba(0,0,0,0.45);
+      justify-content: center;
+      align-items: center;
+    }
+    .give-modal.show {
+      display: flex;
+    }
+    .give-modal-content {
+      background: #fff;
+      margin: auto;
+      border-radius: 14px;
+      max-width: 420px;
+      width: 92vw;
+      padding: 32px 24px 24px 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      position: relative;
+      animation: truthModalIn 0.25s cubic-bezier(0.4,0,0.2,1);
+      text-align: center;
+    }
+    .give-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 1.6em;
+      color: #888;
+      cursor: pointer;
+      font-weight: bold;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+    .give-modal-close:hover,
+    .give-modal-close:focus {
+      color: #2a5db0;
+    }
+    @media (max-width: 600px) {
+      .give-modal-content {
+        padding: 18px 6vw 16px 6vw;
+        max-width: 98vw;
+      }
+      .give-modal-close {
+        top: 8px;
+        right: 12px;
+        font-size: 1.3em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -177,6 +307,7 @@
         <a href="live2.html">Watch Live</a>
         <a href="#joinform">Join Us</a>
         <!-- <a href="#" id="theTruthLink">The Truth</a> -->
+        <!-- <a href="give.html">Give</a> -->
       </div>
     </div>
 
@@ -200,6 +331,7 @@
         <a href="#events">EVENTS</a>
         <a href="#visit">PLAN YOUR VISIT</a>
         <a href="#sermons">SERMONS</a>
+        <a href="give.html">Give</a>
         
         <!-- Mobile Social Links Container -->
         <div class="mobile-socials">
@@ -324,59 +456,142 @@
       </div>
       <div class="ministries-grid">
         <div class="ministry-card">
-          <div class="ministry-icon">
-            <i class="fas fa-users"></i>
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Youth Ministry</h3>
           </div>
-          <h3>Youth Ministry</h3>
-          <p>Engaging programs for children and teenagers to grow in faith and build lasting friendships.</p>
-          <!--<a href="#" class="ministry-link">Learn More</a>-->
+          <div class="ministry-description">Engaging programs for children and teenagers to grow in faith and build lasting friendships.</div>
         </div>
         
         <div class="ministry-card">
-          <div class="ministry-icon">
-            <i class="fas fa-music"></i>
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-music"></i>
+            </div>
+            <h3>Worship Team</h3>
           </div>
-          <h3>Worship Team</h3>
-          <p>Join our worship team and use your musical talents to glorify God and lead others in praise.</p>
-          <!--<a href="#" class="ministry-link">Learn More</a>-->
+          <div class="ministry-description">Join our worship team and use your musical talents to glorify God and lead others in praise.</div>
         </div>
         
         <div class="ministry-card">
-          <div class="ministry-icon">
-            <i class="fas fa-hands-helping"></i>
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Outreach</h3>
           </div>
-          <h3>Outreach</h3>
-          <p>Serving our community through various outreach programs and charitable initiatives.</p>
-          <!--<a href="#" class="ministry-link">Learn More</a>-->
+          <div class="ministry-description">Serving our community through various outreach programs and charitable initiatives.</div>
         </div>
         
         <div class="ministry-card">
-          <div class="ministry-icon">
-            <i class="fas fa-book-open"></i>
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h3>Bible Study</h3>
           </div>
-          <h3>Bible Study</h3>
-          <p>Deep dive into God's Word through our various Bible study groups and classes.</p>
-          <!--<a href="#" class="ministry-link">Learn More</a>-->
+          <div class="ministry-description">Deep dive into God's Word through our various Bible study groups and classes.</div>
         </div>
         
         <div class="ministry-card">
-          <div class="ministry-icon">
-            <i class="fas fa-pray"></i>
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-pray"></i>
+            </div>
+            <h3>Prayer Team</h3>
           </div>
-          <h3>Prayer Team</h3>
-          <p>Join our dedicated prayer team and intercede for the needs of our church and community.</p>
-          <!--<a href="#" class="ministry-link">Learn More</a>-->
+          <div class="ministry-description">Join our dedicated prayer team and intercede for the needs of our church and community.</div>
         </div>
         
         <div class="ministry-card">
-          <div class="ministry-icon">
-            <i class="fas fa-heart"></i>
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Women's Ministry</h3>
           </div>
-          <h3>Women's Ministry</h3>
-          <p>Fellowship and spiritual growth opportunities specifically designed for women of all ages.</p>
-          <!--<a href="#" class="ministry-link">Learn More</a>-->
+          <div class="ministry-description">Fellowship and spiritual growth opportunities specifically designed for women of all ages.</div>
+        </div>
+        <div class="ministry-card">
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-ambulance"></i>
+            </div>
+            <h3>Hospital Care Ministry</h3>
+          </div>
+          <div class="ministry-description">Visiting hospitals to offer prayer, comfort, and hope to patients and their families.</div>
+        </div>
+        <div class="ministry-card">
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-unlock-alt"></i>
+            </div>
+            <h3>Prison Outreach</h3>
+          </div>
+          <div class="ministry-description">Bringing prayer, encouragement, and the message of Christ to those in jail.</div>
+        </div>
+        <div class="ministry-card">
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-bus"></i>
+            </div>
+            <h3>Bus Ministry</h3>
+          </div>
+          <div class="ministry-description">Providing transportation to church for children and families who need a ride.</div>
+        </div>
+        <div class="ministry-card">
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Soul Winning Ministry</h3>
+          </div>
+          <div class="ministry-description">Sharing the Gospel and reaching souls for Christ through personal evangelism.</div>
+        </div>
+        <div class="ministry-card">
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-user-friends"></i>
+            </div>
+            <h3>Visitation Ministry</h3>
+          </div>
+          <div class="ministry-description">Visiting church members, new visitors, and those in need to offer encouragement, prayer, and support.</div>
+        </div>
+        <div class="ministry-card">
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-child"></i>
+            </div>
+            <h3>Junior Church Ministry</h3>
+          </div>
+          <div class="ministry-description">Engaging children with age-appropriate Bible lessons, worship, and activities during regular church services.</div>
+        </div>
+        <div class="ministry-card">
+          <div class="ministry-title-row">
+            <div class="ministry-icon">
+              <i class="fas fa-baby"></i>
+            </div>
+            <h3>Nursery Ministry</h3>
+          </div>
+          <div class="ministry-description">Providing loving care and a safe environment for infants and toddlers during church services.</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Giving Section -->
+  <section class="giving-section">
+    <div class="giving-card">
+      <h2>TITHES & OFFERINGS</h2>
+      <h3>HOW TO SUPPORT OUR CHURCH</h3>
+      <p>
+        Giving to the church is not "paying for services rendered." It is not a "fee." Giving to the church is an act of worship as you help fund the mission God has given us. This allows us to share God's love with people in Bidar and around the world. If that is your mindset, you will experience the reality that it is "more blessed to give than to receive" (Acts 20:35).
+      </p>
+      <p>
+        Thank you for your faithful financial support of Nambike Baptist Church as we serve together to live out our mission.
+      </p>
     </div>
   </section>
 
@@ -662,6 +877,77 @@
           </div>
         `;
       });
+    });
+
+    // Ministry carousel for mobile view
+    function setupMinistryCarousel() {
+      if (window.innerWidth > 700) return;
+      const grid = document.querySelector('.ministries-grid');
+      const cards = Array.from(grid.querySelectorAll('.ministry-card'));
+      if (!cards.length) return;
+      let current = 0;
+      let autoSlideInterval;
+      const hint = document.querySelector('.ministries-swipe-hint');
+      if (hint) hint.style.display = 'block';
+
+      function updateSlider() {
+        cards.forEach((card, idx) => {
+          card.classList.remove('active', 'prev', 'next');
+          if (idx === current) card.classList.add('active');
+          else if (idx === (current - 1 + cards.length) % cards.length) card.classList.add('prev');
+          else if (idx === (current + 1) % cards.length) card.classList.add('next');
+        });
+      }
+      function nextCard() {
+        current = (current + 1) % cards.length;
+        updateSlider();
+      }
+      function prevCard() {
+        current = (current - 1 + cards.length) % cards.length;
+        updateSlider();
+      }
+      function startAutoSlide() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(nextCard, 4000);
+      }
+      function stopAutoSlide() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+      }
+      // Touch events for swipe
+      let startX = null;
+      grid.addEventListener('touchstart', function(e) {
+        stopAutoSlide();
+        startX = e.touches[0].clientX;
+      });
+      grid.addEventListener('touchend', function(e) {
+        if (startX === null) return;
+        const endX = e.changedTouches[0].clientX;
+        const dx = endX - startX;
+        if (dx < -40) nextCard(); // swipe left
+        else if (dx > 40) prevCard(); // swipe right
+        startX = null;
+        startAutoSlide();
+      });
+      // Responsive: update on resize
+      window.addEventListener('resize', updateSlider);
+      updateSlider();
+      startAutoSlide();
+    }
+    window.addEventListener('DOMContentLoaded', setupMinistryCarousel);
+    window.addEventListener('resize', function() {
+      if (window.innerWidth <= 700) setupMinistryCarousel();
+      else {
+        // Reset all cards to visible in desktop view
+        document.querySelectorAll('.ministry-card').forEach(card => {
+          card.classList.remove('active', 'prev', 'next');
+          card.style.opacity = '';
+          card.style.transform = '';
+          card.style.position = '';
+          card.style.pointerEvents = '';
+        });
+        const hint = document.querySelector('.ministries-swipe-hint');
+        if (hint) hint.style.display = 'none';
+      }
     });
   </script>
 </body>

@@ -9,26 +9,35 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('a[href^="#"]');
-    navLinks.forEach(link => {
+    const allNavLinks = document.querySelectorAll('.nav-top a, .nav-bottom a, .nav-right a, .dropdown-menu a');
+    allNavLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 140; // Account for fixed navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                // Only close mobile menu if NOT inside a dropdown (About Us/Our Belief)
-                const isDropdownOption = this.closest('.dropdown-menu');
-                const isAboutUsDropdown = this.closest('.dropdown') && this.closest('.dropdown').querySelector('.dropdown-toggle')?.textContent?.toLowerCase().includes('about us');
-                if (navMenu.classList.contains('active') && !isDropdownOption && !isAboutUsDropdown) {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
+            const href = this.getAttribute('href');
+            // If About Us dropdown toggle, let dropdown logic handle
+            if (this.classList.contains('dropdown-toggle')) return;
+            // If anchor link (starts with #)
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(href);
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 140;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
                 }
+            } else if (href && href.endsWith('.html')) {
+                // If .html link, go to page
+                window.location.href = href;
+                return;
+            } else if (href && href.startsWith('http')) {
+                // External link, let default
+                return;
+            }
+            // Close mobile menu if open
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
             }
         });
     });

@@ -59,6 +59,7 @@ html, body {
   gap: 30px;
 }
 
+/* TOP NAVBAR */
 .nav-top .nav-right a {
   color: #fff;
   text-decoration: none;
@@ -82,6 +83,23 @@ html, body {
   width: 100%;
 }
 
+/* Prevent color change on hover for Watch Live and Join Us */
+.nav-top .nav-right a[href="live2.html"]:hover,
+.nav-top .nav-right a[href="#joinform"]:hover {
+  color: inherit !important;
+}
+
+/* Force text color to white on hover, focus, or active for Watch Live and Join Us in top navbar */
+.nav-top .nav-right a[href="live2.html"]:hover,
+.nav-top .nav-right a[href="#joinform"]:hover,
+.nav-top .nav-right a[href="live2.html"]:focus,
+.nav-top .nav-right a[href="#joinform"]:focus,
+.nav-top .nav-right a[href="live2.html"]:active,
+.nav-top .nav-right a[href="#joinform"]:active {
+  color: #fff !important;
+  background: none !important;
+}
+
 /* ---------------------- BOTTOM NAV ---------------------- */
 .nav-bottom {
   width: 100%;
@@ -100,6 +118,7 @@ html, body {
   gap: 40px;
 }
 
+/* BOTTOM NAVBAR */
 .nav-bottom .nav-right a {
   color: #333;
   text-decoration: none;
@@ -123,6 +142,12 @@ html, body {
 
 .nav-bottom .nav-right a:hover::after {
   width: 100%;
+}
+
+/* Prevent color change on hover for Watch Live and Join Us */
+.nav-bottom .nav-right a[href="live2.html"]:hover,
+.nav-bottom .nav-right a[href="#joinform"]:hover {
+  color: inherit !important;
 }
 
 .nav-bottom .nav-right a.active {
@@ -586,7 +611,7 @@ html, body {
 
 /* ---------------------- Ministries Section ---------------------- */
 .ministries-section {
-  padding: 80px 0;
+  padding: 40px 0 10px 0;
   background-color: #fff;
 }
 
@@ -1760,5 +1785,218 @@ html, body {
   background: none !important;
   color: #333 !important;
   text-decoration: none !important;
+}
+
+@media (max-width: 700px) {
+  .ministry-card .ministry-title-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .ministry-card .ministry-title-row h3 {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+  }
+}
+
+.giving-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0 10px 0;
+  background: none;
+}
+.giving-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 36px 40px 28px 40px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+.giving-card h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1b1b1b;
+  margin-bottom: 12px;
+}
+.giving-card h3 {
+  font-size: 18px;
+  color: #2a5db0;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.giving-card p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+@media (max-width: 700px) {
+  .giving-section {
+    padding: 10px 0 4px 0;
+  }
+  .giving-card {
+    padding: 18px 8px 14px 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 98vw;
+  }
+  .giving-card h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .giving-card h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .giving-card p {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+}
+
+/* --- Giving Methods Section --- */
+.giving-methods-section {
+  margin: 32px auto 0 auto;
+  max-width: 900px;
+  padding: 0 16px;
+  text-align: center;
+}
+.giving-methods-section h3 {
+  font-size: 1.5em;
+  margin-bottom: 24px;
+  color: #2a5db0;
+  font-weight: 700;
+}
+.giving-methods-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.giving-method-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  padding: 28px 20px 20px 20px;
+  flex: 1 1 260px;
+  min-width: 240px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.giving-method-card i {
+  font-size: 2.2em;
+  color: #2a5db0;
+  margin-bottom: 12px;
+}
+.giving-method-card h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.1em;
+  color: #1b1b1b;
+  font-weight: 600;
+}
+.giving-method-card p {
+  font-size: 1em;
+  color: #444;
+  margin-bottom: 12px;
+}
+.give-now-btn {
+  background: #2a5db0;
+  color: #fff;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: background 0.2s;
+  display: inline-block;
+}
+.give-now-btn:hover {
+  background: #1a3e7a;
+}
+.upi-qr-img {
+  width: 120px;
+  height: 120px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.upi-id {
+  font-size: 0.95em;
+  color: #2a5db0;
+  margin-top: 6px;
+  font-weight: 500;
+  word-break: break-all;
+}
+.bank-details {
+  font-size: 0.98em;
+  color: #333;
+  text-align: left;
+  margin: 0 auto;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 8px;
+}
+.giving-help {
+  margin-top: 18px;
+}
+.giving-help a {
+  color: #2a5db0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1em;
+}
+.giving-help a i {
+  margin-right: 6px;
+}
+@media (max-width: 700px) {
+  .giving-methods-grid {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+  .giving-method-card {
+    max-width: 98vw;
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Force no color change on hover, focus, or active for Watch Live and Join Us */
+.nav-top .nav-right a[href="live2.html"]:hover,
+.nav-top .nav-right a[href="#joinform"]:hover,
+.nav-top .nav-right a[href="live2.html"]:focus,
+.nav-top .nav-right a[href="#joinform"]:focus,
+.nav-top .nav-right a[href="live2.html"]:active,
+.nav-top .nav-right a[href="#joinform"]:active,
+.nav-bottom .nav-right a[href="live2.html"]:hover,
+.nav-bottom .nav-right a[href="#joinform"]:hover,
+.nav-bottom .nav-right a[href="live2.html"]:focus,
+.nav-bottom .nav-right a[href="#joinform"]:focus,
+.nav-bottom .nav-right a[href="live2.html"]:active,
+.nav-bottom .nav-right a[href="#joinform"]:active {
+  color: inherit !important;
+  background: none !important;
+}
+
+/* FINAL OVERRIDE: Watch Live and Join Us in top navbar always white on hover */
+.nav-top .nav-right a[href="live2.html"]:hover,
+.nav-top .nav-right a[href="#joinform"]:hover,
+.nav-top .nav-right a[href="live2.html"]:focus,
+.nav-top .nav-right a[href="#joinform"]:focus,
+.nav-top .nav-right a[href="live2.html"]:active,
+.nav-top .nav-right a[href="#joinform"]:active {
+  color: #fff !important;
+  background: transparent !important;
 }
 
