@@ -518,7 +518,7 @@ html, body {
 /* ---------------------- About Section ---------------------- */
 .about-section {
   padding: 80px 0;
-  background-color: white;
+  background-color: #fff;
 }
 
 .about-content {
@@ -587,7 +587,7 @@ html, body {
 /* ---------------------- Ministries Section ---------------------- */
 .ministries-section {
   padding: 80px 0;
-  background-color: #f8f9fa;
+  background-color: #fff;
 }
 
 .ministries-grid {
@@ -597,7 +597,7 @@ html, body {
 }
 
 .ministry-card {
-  background-color: white;
+  background-color: #fff;
   padding: 40px 30px;
   border-radius: 10px;
   text-align: center;
@@ -654,7 +654,7 @@ html, body {
 /* ---------------------- Events Section ---------------------- */
 .events-section {
   padding: 80px 0;
-  background-color: white;
+  background-color: #fff;
 }
 
 .events-grid {
@@ -664,7 +664,7 @@ html, body {
 }
 
 .event-card {
-  background-color: #f8f9fa;
+  background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -736,7 +736,7 @@ html, body {
 /* ---------------------- Plan Your Visit Section ---------------------- */
 .visit-section {
   padding: 80px 0;
-  background-color: #f8f9fa;
+  background-color: #fff;
 }
 
 .visit-content {
@@ -752,7 +752,7 @@ html, body {
 }
 
 .info-card {
-  background-color: white;
+  background-color: #fff;
   padding: 30px;
   border-radius: 10px;
   text-align: center;
@@ -790,7 +790,7 @@ html, body {
 }
 
 .visit-form {
-  background-color: white;
+  background-color: #fff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -1213,7 +1213,7 @@ html, body {
 }
 .sermons-section {
   padding: 60px 0;
-  background: #f8f9fa;
+  background: #fff;
 }
 .sermons-grid {
   display: grid;
