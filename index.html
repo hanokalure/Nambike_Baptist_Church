@@ -129,6 +129,34 @@
         margin: 0 0 0 0;
       }
     }
+    .nav-top .nav-right a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .nav-top .nav-right a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 0.5px;
+      background-color: #fff;
+      transition: width 0.3s ease;
+    }
+    .nav-top .nav-right a:hover::after {
+      width: 100%;
+    }
+    .nav-top .nav-right a[href="live.html"]:hover,
+    .nav-top .nav-right a[href="#joinform"]:hover {
+      color: #fff;
+    }
+    .nav-top .nav-right a[href="live.html"],
+    .nav-top .nav-right a[href="#joinform"] {
+      /* Remove underline and hover effect */
+    }
   </style>
 </head>
 <body>
@@ -146,7 +174,7 @@
         </a>
       </div>
       <div class="nav-right">
-        <a href="live.html" target="_blank">Watch Live</a>
+        <a href="live2.html">Watch Live</a>
         <a href="#joinform">Join Us</a>
         <!-- <a href="#" id="theTruthLink">The Truth</a> -->
       </div>
@@ -370,15 +398,15 @@
         </ol>
         <div class="three-things-video-window" style="display: flex; justify-content: center; align-items: center; max-width: 560px; width: 100%; margin: 0 auto; padding: 0;">
           <div style="position: relative; width: 100%; aspect-ratio: 16/9; margin: 0; padding: 0; border-radius: 0; box-shadow: none; background: none;">
-            <iframe
-              id="threeThingsVideo"
-              src="https://www.youtube.com/embed/pu58jHqTiDk?enablejsapi=1"
-              title="Three Things God Cannot Do"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+          <iframe
+            id="threeThingsVideo"
+            src="https://www.youtube.com/embed/pu58jHqTiDk?enablejsapi=1"
+            title="Three Things God Cannot Do"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
               style="border-radius: 0; box-shadow: none; background: none; width: 100%; height: 100%; margin: 0; padding: 0; display: block;">
-            </iframe>
+          </iframe>
           </div>
         </div>
       </div>
@@ -636,4 +664,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
