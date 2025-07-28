@@ -867,14 +867,7 @@
       const hint = document.querySelector('.ministries-swipe-hint');
       if (hint) hint.style.display = 'block';
       
-      // Hide hint after first interaction
-      let hintHidden = false;
-      function hideHint() {
-        if (!hintHidden && hint) {
-          hint.style.display = 'none';
-          hintHidden = true;
-        }
-      }
+
 
       function updateSlider() {
         cards.forEach((card, idx) => {
@@ -929,11 +922,9 @@
         const dx = endX - startX;
         if (dx < -40) {
           nextCard(); // swipe left
-          hideHint();
         }
         else if (dx > 40) {
           prevCard(); // swipe right
-          hideHint();
         }
         startX = null;
       });
