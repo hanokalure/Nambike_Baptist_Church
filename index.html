@@ -153,39 +153,42 @@
     .nav-top .nav-right a[href="#joinform"]:hover {
       color: #fff;
     }
-    .nav-top .nav-right a[href="live.html"],
-    .nav-top .nav-right a[href="#joinform"] {
-      /* Remove underline and hover effect */
-    }
+
     @media (max-width: 700px) {
-      .ministries-grid {
-        display: flex;
-        flex-direction: row;
-        overflow: hidden;
-        width: 100%;
+      .ministries-section .container {
         position: relative;
-        min-height: 260px;
-        height: 100%;
+        overflow: hidden;
+        min-height: 500px;
+        margin-top: 20px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 20px;
       }
       .ministry-card {
-        flex: 0 0 100%;
-        max-width: 98vw;
-        min-width: 0;
+        width: 350px;
+        height: 270px;
         opacity: 0;
         pointer-events: none;
         transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(.4,1.3,.5,1), opacity 0.3s;
+        transition: transform 0.5s ease, opacity 0.4s ease;
         position: absolute;
-        left: 0;
-        top: 0;
+        left: 50%;
+        top: 50%;
+        margin-left: -175px;
+        margin-top: -100px;
         z-index: 1;
         display: block !important;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        padding: 20px;
+        border: 1px solid #e0e0e0;
       }
       .ministry-card.active {
         opacity: 1;
         pointer-events: auto;
         transform: translateX(0);
-        position: relative;
+        position: absolute;
         z-index: 2;
       }
       .ministry-card.prev {
@@ -435,7 +438,7 @@
   <!-- Ministries Section -->
   <section id="ministry" class="ministries-section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" style="margin-bottom: 80px;">
         <h2>Our Ministries</h2>
         <p>Find your place to serve and grow</p>
       </div>
@@ -460,15 +463,7 @@
           <div class="ministry-description">Join our worship team and use your musical talents to glorify God and lead others in praise.</div>
         </div>
         
-        <div class="ministry-card">
-          <div class="ministry-title-row">
-            <div class="ministry-icon">
-              <i class="fas fa-hands-helping"></i>
-            </div>
-            <h3>Outreach</h3>
-          </div>
-          <div class="ministry-description">Serving our community through various outreach programs and charitable initiatives.</div>
-        </div>
+
         
         <div class="ministry-card">
           <div class="ministry-title-row">
@@ -864,56 +859,71 @@
     // Ministry carousel for mobile view
     function setupMinistryCarousel() {
       if (window.innerWidth > 700) return;
-      const grid = document.querySelector('.ministries-grid');
-      const cards = Array.from(grid.querySelectorAll('.ministry-card'));
+      const container = document.querySelector('.ministries-section .container');
+      const cards = Array.from(container.querySelectorAll('.ministry-card'));
       if (!cards.length) return;
       let current = 0;
-      let autoSlideInterval;
       const hint = document.querySelector('.ministries-swipe-hint');
       if (hint) hint.style.display = 'block';
 
       function updateSlider() {
         cards.forEach((card, idx) => {
           card.classList.remove('active', 'prev', 'next');
-          if (idx === current) card.classList.add('active');
-          else if (idx === (current - 1 + cards.length) % cards.length) card.classList.add('prev');
-          else if (idx === (current + 1) % cards.length) card.classList.add('next');
+          // Reset all cards to hidden state
+          card.style.opacity = '0';
+          card.style.transform = 'translateX(100%)';
+          card.style.pointerEvents = 'none';
+          
+          if (idx === current) {
+            card.classList.add('active');
+            card.style.opacity = '1';
+            card.style.transform = 'translateX(0)';
+            card.style.pointerEvents = 'auto';
+          } else if (idx === (current - 1 + cards.length) % cards.length) {
+            card.classList.add('prev');
+          } else if (idx === (current + 1) % cards.length) {
+            card.classList.add('next');
+          }
         });
       }
       function nextCard() {
-        current = (current + 1) % cards.length;
-        updateSlider();
+        // Add hide animation for current card
+        const currentCard = cards[current];
+        currentCard.style.transform = 'translateX(-100%)';
+        currentCard.style.opacity = '0';
+        
+        setTimeout(() => {
+          current = (current + 1) % cards.length;
+          updateSlider();
+        }, 300);
       }
       function prevCard() {
-        current = (current - 1 + cards.length) % cards.length;
-        updateSlider();
-      }
-      function startAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(nextCard, 4000);
-      }
-      function stopAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
+        // Add hide animation for current card
+        const currentCard = cards[current];
+        currentCard.style.transform = 'translateX(100%)';
+        currentCard.style.opacity = '0';
+        
+        setTimeout(() => {
+          current = (current - 1 + cards.length) % cards.length;
+          updateSlider();
+        }, 300);
       }
       // Touch events for swipe
       let startX = null;
-      grid.addEventListener('touchstart', function(e) {
-        stopAutoSlide();
+      container.addEventListener('touchstart', function(e) {
         startX = e.touches[0].clientX;
       });
-      grid.addEventListener('touchend', function(e) {
+      container.addEventListener('touchend', function(e) {
         if (startX === null) return;
         const endX = e.changedTouches[0].clientX;
         const dx = endX - startX;
         if (dx < -40) nextCard(); // swipe left
         else if (dx > 40) prevCard(); // swipe right
         startX = null;
-        startAutoSlide();
       });
       // Responsive: update on resize
       window.addEventListener('resize', updateSlider);
       updateSlider();
-      startAutoSlide();
     }
     window.addEventListener('DOMContentLoaded', setupMinistryCarousel);
     window.addEventListener('resize', function() {
