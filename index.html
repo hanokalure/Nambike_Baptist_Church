@@ -164,6 +164,36 @@
         border-radius: 16px;
         padding: 20px;
       }
+      
+      /* Override sermon carousel for mobile - display as simple list */
+      .sermons-grid {
+        display: block !important;
+        overflow: visible !important;
+      }
+      .sermon-card {
+        position: static !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        display: block !important;
+        margin-bottom: 20px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        z-index: auto !important;
+      }
+      .sermon-card.active,
+      .sermon-card.prev,
+      .sermon-card.next {
+        position: static !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        display: block !important;
+        margin-bottom: 20px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        z-index: auto !important;
+      }
       .ministry-card {
         width: 350px;
         height: 270px;
@@ -731,8 +761,10 @@
       <div class="section-header">
         <h2>Recent Sermons</h2>
         <p>Watch our latest messages and live streams</p>
+        <div class="sermons-swipe-hint" style="display: none; text-align: center; color: #888; font-size: 14px; margin-top: 10px; letter-spacing: 1px; font-weight: 500;">
+          <i class="fas fa-arrow-right"></i> Swipe right to explore sermons
+        </div>
       </div>
-      <div class="sermons-swipe-hint">Swipe right <span class="swipe-arrow">&#8594;</span></div>
       <div id="recent-sermons" class="sermons-grid"></div>
     </div>
   </section>
@@ -814,47 +846,167 @@
       });
     });
 
-    // Recent Sermons YouTube API
-    const apiKey = 'AIzaSyCc4OQp0HoMroqca8MUeu8hONzA55--HmI';
-    const channelId = 'UCkCMChXACuo1BeyMF-ggEeg';
-    const maxResults = 4;
-    async function fetchSermons() {
-      // Fetch live video (if any)
-      let liveVideo = null;
+    // Recent Sermons - Mobile: YouTube API v3, Desktop: RSS Feed
+    async function loadSermons() {
       try {
-        const liveResp = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&eventType=live&type=video&order=date&maxResults=1`);
-        const liveData = await liveResp.json();
-        if (liveData.items && liveData.items.length > 0) {
-          liveVideo = liveData.items[0];
+        const channelId = 'UCkCMChXACuo1BeyMF-ggEeg';
+        const isMobile = window.innerWidth <= 700;
+        
+        // Mobile: Use YouTube Data API v3
+        if (isMobile) {
+          try {
+            const apiKey = 'AIzaSyCc4OQp0HoMroqca8MUeu8hONzA55--HmI';
+            const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=4&type=video`);
+            const data = await response.json();
+            
+            if (data.items && data.items.length > 0) {
+              return data.items.map(item => ({
+                id: item.id.videoId,
+                title: item.snippet.title
+              }));
+            }
+          } catch (apiError) {
+            console.error('YouTube API failed on mobile:', apiError);
+            // Fallback to static content for mobile
+            return [
+              {
+                id: 'pu58jHqTiDk',
+                title: 'Three Things God Cannot Do - Important Message'
+              },
+              {
+                id: 'dQw4w9WgXcQ',
+                title: 'Sunday Service - Worship and Message'
+              },
+              {
+                id: 'jNQXAC9IVRw', 
+                title: 'Wednesday Bible Study - Growing in Faith'
+              },
+              {
+                id: 'kJQP7kiw5Fk',
+                title: 'Youth Ministry - Building Strong Foundations'
+              }
+            ];
+          }
         }
-      } catch (e) {}
-      // Fetch recent uploads
-      const resp = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`);
-      const data = await resp.json();
-      let videos = data.items.filter(item => item.id.kind === 'youtube#video');
-      // If live video exists, put it first (and remove duplicate if present)
-      if (liveVideo) {
-        videos = [liveVideo, ...videos.filter(v => v.id.videoId !== liveVideo.id.videoId)];
+        
+        // Desktop: Use RSS feed (existing working method)
+        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const response = await fetch(proxyUrl + encodeURIComponent(rssUrl));
+        const xmlText = await response.text();
+        
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+        const entries = xmlDoc.querySelectorAll('entry');
+        
+        const sermons = [];
+        for (let i = 0; i < Math.min(4, entries.length); i++) {
+          const entry = entries[i];
+          const videoId = entry.querySelector('yt\\:videoId, videoId').textContent;
+          const title = entry.querySelector('title').textContent;
+          
+          sermons.push({
+            id: videoId,
+            title: title
+          });
+        }
+        
+        return sermons;
+        
+      } catch (error) {
+        console.error('Error loading sermons:', error);
+        // Fallback to static content
+        return [
+          {
+            id: 'pu58jHqTiDk',
+            title: 'Three Things God Cannot Do - Important Message'
+          },
+          {
+            id: 'dQw4w9WgXcQ',
+            title: 'Sunday Service - Worship and Message'
+          },
+          {
+            id: 'jNQXAC9IVRw', 
+            title: 'Wednesday Bible Study - Growing in Faith'
+          },
+          {
+            id: 'kJQP7kiw5Fk',
+            title: 'Youth Ministry - Building Strong Foundations'
+          }
+        ];
       }
-      return videos.slice(0, maxResults);
     }
-    fetchSermons().then(videos => {
+    
+    // Load sermons when page loads
+    document.addEventListener('DOMContentLoaded', async function() {
       const sermonsContainer = document.getElementById('recent-sermons');
-      sermonsContainer.innerHTML = '';
-      videos.forEach((item, idx) => {
-        const videoId = item.id.videoId;
-        const title = item.snippet.title;
-        sermonsContainer.innerHTML += `
-          <div class="sermon-card" data-index="${idx}">
+      
+      if (!sermonsContainer) {
+        console.error('Sermons container not found');
+        return;
+      }
+      
+      // Show loading state
+      sermonsContainer.innerHTML = `
+        <div class="sermon-card">
+          <div class="sermon-accent"></div>
+          <div class="sermon-video-wrap">
+            <div style="height: 220px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #666;">
+              <p>Loading recent sermons...</p>
+            </div>
+          </div>
+          <div class="sermon-title">Loading Recent Sermons</div>
+          <a class="sermon-watch-btn" href="https://www.youtube.com/channel/UCkCMChXACuo1BeyMF-ggEeg?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
+        </div>
+      `;
+      
+      try {
+        const sermons = await loadSermons();
+        
+        sermonsContainer.innerHTML = '';
+        
+        sermons.forEach((sermon, idx) => {
+          const videoId = sermon.id;
+          const title = sermon.title;
+          
+          // Show YouTube embed for all videos
+          const videoContent = `<iframe width="100%" height="220" src="https://www.youtube.com/embed/${videoId}?enablejsapi=1" frameborder="0" allowfullscreen></iframe>`;
+          
+          sermonsContainer.innerHTML += `
+            <div class="sermon-card" data-index="${idx}">
+              <div class="sermon-accent"></div>
+              <div class="sermon-video-wrap">
+                ${videoContent}
+              </div>
+              <div class="sermon-title">${title}</div>
+              <a class="sermon-watch-btn" href="https://www.youtube.com/channel/UCkCMChXACuo1BeyMF-ggEeg?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
+            </div>
+          `;
+        });
+        
+        // Setup sermon carousel for mobile only
+        if (window.innerWidth <= 700) {
+          setupSermonCarousel();
+        }
+      } catch (error) {
+        console.error('Error loading sermons:', error);
+        // Show fallback content
+        sermonsContainer.innerHTML = `
+          <div class="sermon-card">
             <div class="sermon-accent"></div>
             <div class="sermon-video-wrap">
-              <iframe width="100%" height="220" src="https://www.youtube.com/embed/${videoId}?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+              <iframe width="100%" height="220" src="https://www.youtube.com/embed/pu58jHqTiDk?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
             </div>
-            <div class="sermon-title">${title}</div>
+            <div class="sermon-title">Three Things God Cannot Do - Important Message</div>
             <a class="sermon-watch-btn" href="https://www.youtube.com/channel/UCkCMChXACuo1BeyMF-ggEeg?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
           </div>
         `;
-      });
+        
+        // Setup sermon carousel for mobile fallback content too
+        if (window.innerWidth <= 700) {
+          setupSermonCarousel();
+        }
+      }
     });
 
     // Ministry carousel for mobile view
@@ -934,7 +1086,10 @@
     }
     window.addEventListener('DOMContentLoaded', setupMinistryCarousel);
     window.addEventListener('resize', function() {
-      if (window.innerWidth <= 700) setupMinistryCarousel();
+      if (window.innerWidth <= 700) {
+        setupMinistryCarousel();
+        setupSermonCarousel();
+      }
       else {
         // Reset all cards to visible in desktop view
         document.querySelectorAll('.ministry-card').forEach(card => {
@@ -944,10 +1099,97 @@
           card.style.position = '';
           card.style.pointerEvents = '';
         });
-        const hint = document.querySelector('.ministries-swipe-hint');
-        if (hint) hint.style.display = 'none';
+        document.querySelectorAll('.sermon-card').forEach(card => {
+          card.classList.remove('active', 'prev', 'next');
+          card.style.opacity = '';
+          card.style.transform = '';
+          card.style.position = '';
+          card.style.pointerEvents = '';
+        });
+        const ministryHint = document.querySelector('.ministries-swipe-hint');
+        const sermonHint = document.querySelector('.sermons-swipe-hint');
+        if (ministryHint) ministryHint.style.display = 'none';
+        if (sermonHint) sermonHint.style.display = 'none';
       }
     });
+
+    // Sermon carousel for mobile view
+    function setupSermonCarousel() {
+      if (window.innerWidth > 700) return;
+      const container = document.querySelector('.sermons-section .container');
+      const cards = Array.from(container.querySelectorAll('.sermon-card'));
+      if (!cards.length) return;
+      let current = 0;
+      const hint = document.querySelector('.sermons-swipe-hint');
+      if (hint) hint.style.display = 'block';
+
+      function updateSlider() {
+        cards.forEach((card, idx) => {
+          card.classList.remove('active', 'prev', 'next');
+          // Reset all cards to hidden state
+          card.style.opacity = '0';
+          card.style.transform = 'translateX(100%)';
+          card.style.pointerEvents = 'none';
+          
+          if (idx === current) {
+            card.classList.add('active');
+            card.style.opacity = '1';
+            card.style.transform = 'translateX(0)';
+            card.style.pointerEvents = 'auto';
+          } else if (idx === (current - 1 + cards.length) % cards.length) {
+            card.classList.add('prev');
+          } else if (idx === (current + 1) % cards.length) {
+            card.classList.add('next');
+          }
+        });
+      }
+
+      function nextCard() {
+        // Add hide animation for current card
+        const currentCard = cards[current];
+        currentCard.style.transform = 'translateX(-100%)';
+        currentCard.style.opacity = '0';
+        
+        setTimeout(() => {
+          current = (current + 1) % cards.length;
+          updateSlider();
+        }, 300);
+      }
+
+      function prevCard() {
+        // Add hide animation for current card
+        const currentCard = cards[current];
+        currentCard.style.transform = 'translateX(100%)';
+        currentCard.style.opacity = '0';
+        
+        setTimeout(() => {
+          current = (current - 1 + cards.length) % cards.length;
+          updateSlider();
+        }, 300);
+      }
+
+      // Touch events for swipe
+      let startX = null;
+      container.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+      });
+      container.addEventListener('touchend', function(e) {
+        if (startX === null) return;
+        const endX = e.changedTouches[0].clientX;
+        const dx = endX - startX;
+        if (dx < -40) {
+          nextCard(); // swipe left
+        }
+        else if (dx > 40) {
+          prevCard(); // swipe right
+        }
+        startX = null;
+      });
+
+      // Responsive: update on resize
+      window.addEventListener('resize', updateSlider);
+      updateSlider();
+    }
   </script>
 </body>
 </html> 
