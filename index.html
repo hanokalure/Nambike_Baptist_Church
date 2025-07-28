@@ -756,18 +756,18 @@
   </section>
 
   <!-- Recent Sermons Section -->
+  <!--
   <section id="sermons" class="sermons-section">
     <div class="container sermons-fixed-container">
       <div class="section-header">
         <h2>Recent Sermons</h2>
         <p>Watch our latest messages and live streams</p>
-        <div class="sermons-swipe-hint" style="display: none; text-align: center; color: #888; font-size: 14px; margin-top: 10px; letter-spacing: 1px; font-weight: 500;">
-          <i class="fas fa-arrow-right"></i> Swipe right to explore sermons
-        </div>
       </div>
+      <div class="sermons-swipe-hint">Swipe right <span class="swipe-arrow">&#8594;</span></div>
       <div id="recent-sermons" class="sermons-grid"></div>
     </div>
   </section>
+  -->
 
   <!-- Footer -->
   <footer class="footer">
@@ -787,20 +787,14 @@
         <div class="footer-section">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#ministry">Ministries</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#visit">Plan Your Visit</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-section">
-          <h4>Ministries</h4>
-          <ul>
-            <li><a href="#">Youth Ministry</a></li>
-            <li><a href="#">Worship Team</a></li>
-            <li><a href="#">Outreach</a></li>
-            <li><a href="#">Bible Study</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="index.html#ministry">Ministries</a></li>
+            <li><a href="the-truth.html">The Truth</a></li>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="index.html#visit">Plan Your Visit</a></li>
+            <li><a href="index.html#sermons">Sermons</a></li>
+            <li><a href="give.html">Give</a></li>
+            <li><a href="prayer-request.html">Prayer Request</a></li>
           </ul>
         </div>
         
@@ -846,75 +840,86 @@
       });
     });
 
-    // Recent Sermons - Mobile: YouTube API v3, Desktop: RSS Feed
+    // Recent Sermons - YouTube Data API v3 for both mobile and desktop
     async function loadSermons() {
       try {
         const channelId = 'UCkCMChXACuo1BeyMF-ggEeg';
-        const isMobile = window.innerWidth <= 700;
+        const apiKey = 'AIzaSyCc4OQp0HoMroqca8MUeu8hONzA55--HmI';
         
-        // Mobile: Use YouTube Data API v3
-        if (isMobile) {
+        console.log('Fetching videos from channel:', channelId);
+        
+        // Try multiple approaches to get videos
+        let videos = [];
+        
+        // Approach 1: Search videos from channel
+        try {
+          const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=4&type=video`;
+          console.log('Trying search API:', searchUrl);
+          
+          const searchResponse = await fetch(searchUrl);
+          const searchData = await searchResponse.json();
+          
+          console.log('Search API Response:', searchData);
+          
+          if (searchData.error) {
+            console.error('Search API Error:', searchData.error);
+          } else if (searchData.items && searchData.items.length > 0) {
+            console.log('Found videos via search:', searchData.items.length);
+            videos = searchData.items.map(item => ({
+              id: item.id.videoId,
+              title: item.snippet.title
+            }));
+          }
+        } catch (searchError) {
+          console.error('Search API failed:', searchError);
+        }
+        
+        // Approach 2: Get channel's uploads playlist if search failed
+        if (videos.length === 0) {
           try {
-            const apiKey = 'AIzaSyCc4OQp0HoMroqca8MUeu8hONzA55--HmI';
-            const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=4&type=video`);
-            const data = await response.json();
+            const channelUrl = `https://www.googleapis.com/youtube/v3/channels?key=${apiKey}&id=${channelId}&part=contentDetails`;
+            console.log('Trying channel API:', channelUrl);
             
-            if (data.items && data.items.length > 0) {
-              return data.items.map(item => ({
-                id: item.id.videoId,
-                title: item.snippet.title
-              }));
-            }
-          } catch (apiError) {
-            console.error('YouTube API failed on mobile:', apiError);
-            // Fallback to static content for mobile
-            return [
-              {
-                id: 'pu58jHqTiDk',
-                title: 'Three Things God Cannot Do - Important Message'
-              },
-              {
-                id: 'dQw4w9WgXcQ',
-                title: 'Sunday Service - Worship and Message'
-              },
-              {
-                id: 'jNQXAC9IVRw', 
-                title: 'Wednesday Bible Study - Growing in Faith'
-              },
-              {
-                id: 'kJQP7kiw5Fk',
-                title: 'Youth Ministry - Building Strong Foundations'
+            const channelResponse = await fetch(channelUrl);
+            const channelData = await channelResponse.json();
+            
+            console.log('Channel API Response:', channelData);
+            
+            if (channelData.items && channelData.items.length > 0) {
+              const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+              console.log('Uploads playlist ID:', uploadsPlaylistId);
+              
+              const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?key=${apiKey}&playlistId=${uploadsPlaylistId}&part=snippet&maxResults=4`;
+              console.log('Trying playlist API:', playlistUrl);
+              
+              const playlistResponse = await fetch(playlistUrl);
+              const playlistData = await playlistResponse.json();
+              
+              console.log('Playlist API Response:', playlistData);
+              
+              if (playlistData.items && playlistData.items.length > 0) {
+                console.log('Found videos via playlist:', playlistData.items.length);
+                videos = playlistData.items.map(item => ({
+                  id: item.snippet.resourceId.videoId,
+                  title: item.snippet.title
+                }));
               }
-            ];
+            }
+          } catch (playlistError) {
+            console.error('Playlist API failed:', playlistError);
           }
         }
         
-        // Desktop: Use RSS feed (existing working method)
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
-        const response = await fetch(proxyUrl + encodeURIComponent(rssUrl));
-        const xmlText = await response.text();
-        
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-        const entries = xmlDoc.querySelectorAll('entry');
-        
-        const sermons = [];
-        for (let i = 0; i < Math.min(4, entries.length); i++) {
-          const entry = entries[i];
-          const videoId = entry.querySelector('yt\\:videoId, videoId').textContent;
-          const title = entry.querySelector('title').textContent;
-          
-          sermons.push({
-            id: videoId,
-            title: title
-          });
+        if (videos.length > 0) {
+          return videos;
         }
         
-        return sermons;
+        console.log('No videos found with any approach');
+        throw new Error('No videos found');
         
       } catch (error) {
-        console.error('Error loading sermons:', error);
+        console.error('YouTube API failed:', error);
+        console.log('Using fallback static content');
         // Fallback to static content
         return [
           {
@@ -984,9 +989,22 @@
           `;
         });
         
-        // Setup sermon carousel for mobile only
-        if (window.innerWidth <= 700) {
-          setupSermonCarousel();
+        // Fix mobile view - display as simple list
+        if (window.innerWidth <= 900) {
+          const sermonCards = sermonsContainer.querySelectorAll('.sermon-card');
+          sermonCards.forEach((card, idx) => {
+            // Remove all carousel effects
+            card.classList.remove('active', 'prev', 'next');
+            card.style.opacity = '1';
+            card.style.transform = 'none';
+            card.style.pointerEvents = 'auto';
+            card.style.position = 'static';
+            card.style.zIndex = 'auto';
+            card.style.display = 'block';
+            card.style.marginBottom = '20px';
+            card.style.maxWidth = '100%';
+            card.style.width = '100%';
+          });
         }
       } catch (error) {
         console.error('Error loading sermons:', error);
@@ -1002,9 +1020,21 @@
           </div>
         `;
         
-        // Setup sermon carousel for mobile fallback content too
-        if (window.innerWidth <= 700) {
-          setupSermonCarousel();
+        // Fix mobile view for fallback content too
+        if (window.innerWidth <= 900) {
+          const sermonCard = sermonsContainer.querySelector('.sermon-card');
+          if (sermonCard) {
+            sermonCard.classList.remove('active', 'prev', 'next');
+            sermonCard.style.opacity = '1';
+            sermonCard.style.transform = 'none';
+            sermonCard.style.pointerEvents = 'auto';
+            sermonCard.style.position = 'static';
+            sermonCard.style.zIndex = 'auto';
+            sermonCard.style.display = 'block';
+            sermonCard.style.marginBottom = '20px';
+            sermonCard.style.maxWidth = '100%';
+            sermonCard.style.width = '100%';
+          }
         }
       }
     });
@@ -1086,10 +1116,7 @@
     }
     window.addEventListener('DOMContentLoaded', setupMinistryCarousel);
     window.addEventListener('resize', function() {
-      if (window.innerWidth <= 700) {
-        setupMinistryCarousel();
-        setupSermonCarousel();
-      }
+      if (window.innerWidth <= 700) setupMinistryCarousel();
       else {
         // Reset all cards to visible in desktop view
         document.querySelectorAll('.ministry-card').forEach(card => {
@@ -1099,97 +1126,10 @@
           card.style.position = '';
           card.style.pointerEvents = '';
         });
-        document.querySelectorAll('.sermon-card').forEach(card => {
-          card.classList.remove('active', 'prev', 'next');
-          card.style.opacity = '';
-          card.style.transform = '';
-          card.style.position = '';
-          card.style.pointerEvents = '';
-        });
-        const ministryHint = document.querySelector('.ministries-swipe-hint');
-        const sermonHint = document.querySelector('.sermons-swipe-hint');
-        if (ministryHint) ministryHint.style.display = 'none';
-        if (sermonHint) sermonHint.style.display = 'none';
+        const hint = document.querySelector('.ministries-swipe-hint');
+        if (hint) hint.style.display = 'none';
       }
     });
-
-    // Sermon carousel for mobile view
-    function setupSermonCarousel() {
-      if (window.innerWidth > 700) return;
-      const container = document.querySelector('.sermons-section .container');
-      const cards = Array.from(container.querySelectorAll('.sermon-card'));
-      if (!cards.length) return;
-      let current = 0;
-      const hint = document.querySelector('.sermons-swipe-hint');
-      if (hint) hint.style.display = 'block';
-
-      function updateSlider() {
-        cards.forEach((card, idx) => {
-          card.classList.remove('active', 'prev', 'next');
-          // Reset all cards to hidden state
-          card.style.opacity = '0';
-          card.style.transform = 'translateX(100%)';
-          card.style.pointerEvents = 'none';
-          
-          if (idx === current) {
-            card.classList.add('active');
-            card.style.opacity = '1';
-            card.style.transform = 'translateX(0)';
-            card.style.pointerEvents = 'auto';
-          } else if (idx === (current - 1 + cards.length) % cards.length) {
-            card.classList.add('prev');
-          } else if (idx === (current + 1) % cards.length) {
-            card.classList.add('next');
-          }
-        });
-      }
-
-      function nextCard() {
-        // Add hide animation for current card
-        const currentCard = cards[current];
-        currentCard.style.transform = 'translateX(-100%)';
-        currentCard.style.opacity = '0';
-        
-        setTimeout(() => {
-          current = (current + 1) % cards.length;
-          updateSlider();
-        }, 300);
-      }
-
-      function prevCard() {
-        // Add hide animation for current card
-        const currentCard = cards[current];
-        currentCard.style.transform = 'translateX(100%)';
-        currentCard.style.opacity = '0';
-        
-        setTimeout(() => {
-          current = (current - 1 + cards.length) % cards.length;
-          updateSlider();
-        }, 300);
-      }
-
-      // Touch events for swipe
-      let startX = null;
-      container.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
-      });
-      container.addEventListener('touchend', function(e) {
-        if (startX === null) return;
-        const endX = e.changedTouches[0].clientX;
-        const dx = endX - startX;
-        if (dx < -40) {
-          nextCard(); // swipe left
-        }
-        else if (dx > 40) {
-          prevCard(); // swipe right
-        }
-        startX = null;
-      });
-
-      // Responsive: update on resize
-      window.addEventListener('resize', updateSlider);
-      updateSlider();
-    }
   </script>
 </body>
 </html> 
