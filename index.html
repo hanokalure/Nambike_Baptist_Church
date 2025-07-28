@@ -224,16 +224,14 @@
         display: block;
         text-align: center;
         color: #888;
-        font-size: 15px;
-        margin-bottom: 10px;
-        margin-top: -10px;
+        font-size: 14px;
+        margin-bottom: 15px;
         letter-spacing: 1px;
         font-weight: 500;
       }
-      .ministries-swipe-hint .swipe-arrow {
-        font-size: 18px;
-        vertical-align: middle;
-        margin-left: 4px;
+      .ministries-swipe-hint i {
+        margin-right: 8px;
+        font-size: 16px;
       }
     }
     .give-modal {
@@ -441,6 +439,9 @@
       <div class="section-header" style="margin-bottom: 80px;">
         <h2>Our Ministries</h2>
         <p>Find your place to serve and grow</p>
+        <div class="ministries-swipe-hint" style="display: none; text-align: center; color: #888; font-size: 14px; margin-top: 10px; letter-spacing: 1px; font-weight: 500;">
+          <i class="fas fa-arrow-right"></i> Swipe right to explore ministries
+        </div>
       </div>
       <div class="ministries-grid">
         <div class="ministry-card">
@@ -865,6 +866,15 @@
       let current = 0;
       const hint = document.querySelector('.ministries-swipe-hint');
       if (hint) hint.style.display = 'block';
+      
+      // Hide hint after first interaction
+      let hintHidden = false;
+      function hideHint() {
+        if (!hintHidden && hint) {
+          hint.style.display = 'none';
+          hintHidden = true;
+        }
+      }
 
       function updateSlider() {
         cards.forEach((card, idx) => {
@@ -917,8 +927,14 @@
         if (startX === null) return;
         const endX = e.changedTouches[0].clientX;
         const dx = endX - startX;
-        if (dx < -40) nextCard(); // swipe left
-        else if (dx > 40) prevCard(); // swipe right
+        if (dx < -40) {
+          nextCard(); // swipe left
+          hideHint();
+        }
+        else if (dx > 40) {
+          prevCard(); // swipe right
+          hideHint();
+        }
         startX = null;
       });
       // Responsive: update on resize
