@@ -1,4 +1,4 @@
-Welcome to the official website of **Nambike Baptist Church**—a place where worship, spiritual growth, and service come together. Our site introduces who we are, how we serve, and how you can be part of our journey.
+Welcome to the official website of **Nambike Baptist Church** a place where worship, spiritual growth, and service come together. Our site introduces who we are, how we serve, and how you can be part of our journey.
 
 ---
 
