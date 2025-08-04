@@ -1,3 +1,7 @@
+# Nambike Baptist Church Website
+
+[![GitHub - hanokalure/Nambike_Baptist_Church](https://img.shields.io/badge/GitHub-View%20Repository-blue?logo=github)](https://github.com/hanokalure/Nambike_Baptist_Church)
+
 Welcome to the official website of **Nambike Baptist Church** a place where worship, spiritual growth, and service come together. Our site introduces who we are, how we serve, and how you can be part of our journey.
 
 ---
@@ -5,7 +9,6 @@ Welcome to the official website of **Nambike Baptist Church** a place where wors
 ## 🌐 Live Website
 
 👉 [Visit the Live Site](https://nambike-baptist-church.netlify.app/)
-[![GitHub - hanokalure/Nambike_Baptist_Church](https://img.shields.io/badge/GitHub-View%20Repository-blue?logo=github)](https://github.com/hanokalure/Nambike_Baptist_Church)
 
 ---
 
