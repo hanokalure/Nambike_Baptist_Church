@@ -1,35 +1,53 @@
-Welcome to the official website repository of **Nambike Baptist Church**. This responsive, mobile-friendly website was designed to keep church members and visitors informed with worship schedules, event updates, ministry highlights, and a direct way to connect with the church online.
+Welcome to the official website of **Nambike Baptist Church**—a place where worship, spiritual growth, and service come together. Our site introduces who we are, how we serve, and how you can be part of our journey.
 
 ---
 
 ## 🌐 Live Website
 
-👉 *[Add your live site link here]*
+👉 [Visit the Live Site](https://nambike-baptist-church.netlify.app/)
 
 ---
 
-## 📌 Features
+## 📌 Highlights
 
-- ✅ Fully responsive design (mobile + desktop)
-- ✅ Animated hamburger menu navigation
-- ✅ Hero welcome section with background video
-- ✅ Ministries and Church Committee card sliders
-- ✅ Upcoming Events modal
-- ✅ Contact form connected to Supabase backend
-- ✅ Google Maps embed for location
-- ✅ Social media integration
-- ✅ Accessible and clean user interface
+- Hero section with an invitation: “Join us to worship, grow, and serve together.”
+- Navigation includes About Us, Ministries, Events, Plan Your Visit, Sermons, Give, Prayer Request, and more.
+- Doctrinal Statement with emphasis on:
+  - Supernatural nature of Christ and the Bible
+  - Use of the King James Version
+  - Commitment to evangelism and Christian education
+- Ministry offerings (swipe to explore):
+  - Youth Ministry
+  - Worship Team
+  - Bible Study
+  - Prayer Team
+  - Women’s Ministry
+  - Hospital Care & Visitation
+  - Prison Outreach
+  - Bus Ministry
+  - Soul Winning Ministry
+  - Junior Church & Nursery Ministry
+- “Three Things God Cannot Do” teaching feature
+- Upcoming Events overview:
+  - Sunday School (10:00 AM)
+  - Sunday Service (11:00 AM)
+  - Wednesday Bible Study (7:00 PM)
+- Plan Your Visit section:
+  - Sunday services, Wednesday study times
+  - Address: Shahpur Rd, Haladkeri, Bidar, Karnataka 585403
+  - Contact: +91 8197645778 
 
 ---
 
 ## 🔧 Technologies Used
 
-- **HTML5**
-- **CSS3** (Responsive with Flexbox & Media Queries)
-- **JavaScript**
-- **Supabase** (backend for form submissions)
-- **Google Maps Embed**
-- **Font Awesome** (for icons)
+*(Inference based on typical modern static site tooling—please adjust if different)*
+
+- **HTML5** & **CSS3** (responsive layout, Flexbox, media queries)
+- **JavaScript** (interactive menus, sliders)
+- Background images or video for visual impact
+- Embedded components (e.g. maps) and forms (contact, prayer request)
+- Accessible and clean UI design
 
 ---
 
@@ -37,19 +55,6 @@ Welcome to the official website repository of **Nambike Baptist Church**. This r
 
 ### 📁 Clone the Repository
 
-\`\`\`bash
+```bash
 git clone https://github.com/hanokalure/Nambike_Baptist_Church.git
 cd Nambike_Baptist_Church
-\`\`\`
-
----
-
-## 🙌 Contributions
-
-Feel free to fork this repository and make improvements. Pull requests are welcome!
-
----
-
-## 📬 Contact
-
-If you have any questions, suggestions, or feedback, please reach out via the contact form on the website.
